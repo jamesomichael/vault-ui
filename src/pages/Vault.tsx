@@ -6,7 +6,7 @@ import { IoShieldHalfSharp } from 'react-icons/io5';
 
 const Vault = () => {
 	return (
-		<div className="h-full grid grid-rows-[3rem_1fr]">
+		<div className="h-full grid grid-rows-[3.2rem_1fr]">
 			<Header />
 			<div className="h-full overflow-hidden grid grid-cols-[17rem_1fr]">
 				<Sidebar />
