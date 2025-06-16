@@ -1,16 +1,23 @@
 import './App.css';
+import { Routes, Route } from 'react-router';
 
-import { useState } from 'react';
-
-import Auth from './components/Auth';
+import CreateUser from './pages/auth/CreateUser';
+import SelectUser from './pages/auth/SelectUser';
+import AuthLayout from './layouts/AuthLayout';
 import Vault from './components/Vault';
+import NotFound from './pages/NotFound';
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-
 	return (
-		<div className="h-screen bg-neutral-800">
-			{isLoggedIn ? <Vault /> : <Auth />}
+		<div className="h-screen bg-slate-900">
+			<Routes>
+				<Route path="/" element={<Vault />} />
+				<Route path="/auth" element={<AuthLayout />}>
+					<Route path="login" element={<SelectUser />} />
+					<Route path="create" element={<CreateUser />} />
+				</Route>
+				<Route path="*" element={<NotFound />} />
+			</Routes>
 		</div>
 	);
 }

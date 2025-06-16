@@ -1,10 +1,10 @@
 import { LuUserRoundPlus } from 'react-icons/lu';
-import Input from './shared/Input';
-import Button from './shared/Button';
+import Input from '../shared/Input';
+import Button from '../shared/Button';
 
-const CreateUser = () => {
+const CreateUserForm = () => {
 	return (
-		<div className="h-full w-full flex flex-col gap-4 items-center mt-60 text-slate-200">
+		<div className="h-full w-full flex flex-col gap-4 items-center pt-60 text-slate-200">
 			<LuUserRoundPlus className="text-7xl" />
 			<span className="font-hubot text-xl font-bold leading-none">
 				Create user
@@ -19,4 +19,4 @@ const CreateUser = () => {
 	);
 };
 
-export default CreateUser;
+export default CreateUserForm;
