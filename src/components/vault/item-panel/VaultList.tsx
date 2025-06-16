@@ -6,7 +6,7 @@ const VaultList = () => {
 	return (
 		<div className="h-full bg-slate-800 flex flex-col overflow-y-scroll">
 			{vaultItems.map((item, i) => (
-				<VaultListItem item={item} />
+				<VaultListItem key={i} item={item} />
 			))}
 		</div>
 	);
