@@ -9,7 +9,7 @@ import NotFound from './pages/NotFound';
 
 function App() {
 	return (
-		<div className="h-screen bg-slate-900">
+		<div className="select-none h-screen bg-slate-900">
 			<Routes>
 				<Route path="/" element={<Vault />} />
 				<Route path="/auth" element={<AuthLayout />}>
