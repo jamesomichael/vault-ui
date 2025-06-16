@@ -1,9 +1,16 @@
 import './App.css';
 
+import { useState } from 'react';
+
+import Auth from './components/Auth';
+import Vault from './components/Vault';
+
 function App() {
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 	return (
-		<div className="bg-cyan-500">
-			<span>Vault</span>
+		<div className="h-screen bg-neutral-800">
+			{isLoggedIn ? <Vault /> : <Auth />}
 		</div>
 	);
 }
