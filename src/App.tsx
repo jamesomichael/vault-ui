@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router';
 import CreateUser from './pages/auth/CreateUser';
 import SelectUser from './pages/auth/SelectUser';
 import AuthLayout from './layouts/AuthLayout';
-import Vault from './components/Vault';
+import Vault from './pages/Vault';
 import NotFound from './pages/NotFound';
 
 function App() {
