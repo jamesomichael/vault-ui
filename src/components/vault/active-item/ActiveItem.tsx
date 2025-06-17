@@ -1,3 +1,4 @@
+import ActiveItemActions from './ActiveItemActions';
 import Field from './Field';
 import FieldGroup from './FieldGroup';
 import Timestamps from './Timestamps';
@@ -35,7 +36,7 @@ const ActiveItem = ({ item }) => {
 					<Timestamps />
 				</div>
 			</div>
-			<div className="h-full border-t-[1px] border-slate-950 bg-slate-700 px-4 py-2"></div>
+			<ActiveItemActions />
 		</div>
 	);
 };
