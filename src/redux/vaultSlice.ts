@@ -14,8 +14,11 @@ const vaultSlice = createSlice({
 		addItem(state, action) {
 			state.items.push(action.payload);
 		},
+		setActiveItem(state, action) {
+			state.activeItem = action.payload;
+		},
 	},
 });
 
-export const { addItem } = vaultSlice.actions;
+export const { addItem, setActiveItem } = vaultSlice.actions;
 export default vaultSlice.reducer;

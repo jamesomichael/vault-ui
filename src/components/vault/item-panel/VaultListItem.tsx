@@ -1,3 +1,7 @@
+import { useDispatch } from 'react-redux';
+
+import { setActiveItem } from '../../../redux/vaultSlice';
+
 type ItemType = 'login' | 'card' | 'identity' | 'note' | 'key';
 
 interface ListItem {
@@ -14,8 +18,17 @@ interface ItemProps {
 }
 
 const VaultListItem = ({ item }: ItemProps) => {
+	const dispatch = useDispatch();
+
+	const handleClick = () => {
+		dispatch(setActiveItem(item));
+	};
+
 	return (
-		<div className="grid grid-cols-[3rem_1fr] items-center px-2 h-12 hover:bg-slate-700 hover:cursor-pointer">
+		<div
+			onClick={handleClick}
+			className="grid grid-cols-[3rem_1fr] items-center px-2 h-12 hover:bg-slate-700 hover:cursor-pointer"
+		>
 			<div className="h-full flex items-center justify-center p-3">
 				<img
 					src={`https://www.google.com/s2/favicons?sz=64&domain=${
