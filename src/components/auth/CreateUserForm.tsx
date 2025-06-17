@@ -4,7 +4,7 @@ import Button from '../shared/Button';
 
 const CreateUserForm = () => {
 	return (
-		<div className="h-full w-full flex flex-col gap-4 items-center pt-60 text-slate-200">
+		<div className="h-full w-full flex flex-col gap-4 items-center pt-32 text-slate-200">
 			<LuUserRoundPlus className="text-7xl" />
 			<span className="font-hubot text-xl font-bold leading-none">
 				Create user

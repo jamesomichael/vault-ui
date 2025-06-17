@@ -5,7 +5,7 @@ import { LuLock } from 'react-icons/lu';
 
 const LogInForm = () => {
 	return (
-		<div className="h-full w-full flex flex-col gap-4 items-center pt-60 text-slate-200">
+		<div className="h-full w-full flex flex-col gap-4 items-center pt-32 text-slate-200">
 			<LuLock className="text-7xl" />
 			<span className="font-hubot text-xl font-bold leading-none">
 				Your vault is locked
