@@ -1,26 +1,25 @@
 import { useSelector } from 'react-redux';
 
-import ActiveItem from './ActiveItem';
-import CreateVaultItem from './CreateVaultItem';
-import EditActiveItem from './EditActiveItem';
+import ViewVaultItem from './view/ViewVaultItem';
+import EditVaultItem from './edit/EditVaultItem';
+import CreateVaultItem from './create/CreateVaultItem';
 
 import { IoShieldHalfSharp } from 'react-icons/io5';
 
 import type { RootState } from '../../../redux/store';
 
-const ActiveItemWindow = () => {
+const ItemWindow = () => {
+	const mode = useSelector((state: RootState) => state.vault.windowMode);
 	const activeItem = useSelector(
 		(state: RootState) => state.vault.activeItem
 	);
 
-	const mode = useSelector((state: RootState) => state.vault.windowMode);
-
 	return (
 		<div className="h-full overflow-hidden bg-slate-900">
 			{mode === 'view' ? (
-				<ActiveItem item={activeItem} />
+				<ViewVaultItem item={activeItem} />
 			) : mode === 'edit' ? (
-				<EditActiveItem />
+				<EditVaultItem />
 			) : mode === 'create' ? (
 				<CreateVaultItem />
 			) : (
@@ -33,4 +32,4 @@ const ActiveItemWindow = () => {
 	);
 };
 
-export default ActiveItemWindow;
+export default ItemWindow;

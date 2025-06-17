@@ -1,9 +1,9 @@
-import ActiveItemActions from './ActiveItemActions';
-import Field from './Field';
-import FieldGroup from './FieldGroup';
+import ViewActions from './ViewActions';
+import Field from '../../../shared/Field';
+import FieldGroup from '../../../shared/FieldGroup';
 import Timestamps from './Timestamps';
 
-const ActiveItem = ({ item }) => {
+const ViewVaultItem = ({ item }) => {
 	return (
 		<div className="h-full grid grid-rows-[1fr_3.5rem]">
 			<div className="w-full h-full max-w-screen-md mx-auto flex flex-col gap-3 p-4">
@@ -36,9 +36,9 @@ const ActiveItem = ({ item }) => {
 					<Timestamps />
 				</div>
 			</div>
-			<ActiveItemActions />
+			<ViewActions />
 		</div>
 	);
 };
 
-export default ActiveItem;
+export default ViewVaultItem;

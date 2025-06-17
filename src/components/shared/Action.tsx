@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface ActiveItemActionProps {
+interface ActionProps {
 	title: string;
 	isDestructive?: boolean;
 	onClick?: () => void;
@@ -8,13 +8,13 @@ interface ActiveItemActionProps {
 	Icon: React.ElementType;
 }
 
-const ActiveItemAction = ({
+const Action = ({
 	title,
 	isDestructive = false,
 	onClick,
 	className,
 	Icon,
-}: ActiveItemActionProps) => {
+}: ActionProps) => {
 	return (
 		<button
 			onClick={onClick}
@@ -28,4 +28,4 @@ const ActiveItemAction = ({
 	);
 };
 
-export default ActiveItemAction;
+export default Action;

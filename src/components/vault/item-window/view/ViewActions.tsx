@@ -1,11 +1,12 @@
 import { useDispatch } from 'react-redux';
-import ActiveItemAction from './ActiveItemAction';
 
-import { setEditMode, clearActiveItem } from '../../../redux/vaultSlice';
+import Action from '../../../shared/Action';
+
+import { setEditMode, clearActiveItem } from '../../../../redux/vaultSlice';
 
 import { FaRegTrashCan, FaPencil, FaXmark } from 'react-icons/fa6';
 
-const ActiveItemActions = () => {
+const ViewActions = () => {
 	const dispatch = useDispatch();
 
 	const closeActiveItem = () => dispatch(clearActiveItem());
@@ -14,13 +15,13 @@ const ActiveItemActions = () => {
 	return (
 		<div className="h-full border-t-[1px] border-slate-950 bg-slate-700 flex items-center justify-between px-4 py-2">
 			<div className="h-full flex items-center gap-3">
-				<ActiveItemAction
+				<Action
 					title="Close"
 					onClick={closeActiveItem}
 					Icon={FaXmark}
 					className="text-2xl"
 				/>
-				<ActiveItemAction
+				<Action
 					onClick={activateEditMode}
 					title="Edit"
 					Icon={FaPencil}
@@ -28,7 +29,7 @@ const ActiveItemActions = () => {
 				/>
 			</div>
 			<div className="h-full flex items-center gap-3">
-				<ActiveItemAction
+				<Action
 					title="Delete"
 					Icon={FaRegTrashCan}
 					className="text-lg"
@@ -39,4 +40,4 @@ const ActiveItemActions = () => {
 	);
 };
 
-export default ActiveItemActions;
+export default ViewActions;

@@ -1,4 +1,4 @@
-import ActiveItemWindow from '../components/vault/active-item/ActiveItemWindow';
+import ItemWindow from '../components/vault/item-window/ItemWindow';
 import Header from '../components/vault/header/Header';
 import ItemPanel from '../components/vault/item-panel/ItemPanel';
 import Sidebar from '../components/vault/sidebar/Sidebar';
@@ -11,7 +11,7 @@ const Vault = () => {
 				<Sidebar />
 				<div className="h-full overflow-hidden grid grid-cols-[23rem_1fr]">
 					<ItemPanel />
-					<ActiveItemWindow />
+					<ItemWindow />
 				</div>
 			</div>
 		</div>

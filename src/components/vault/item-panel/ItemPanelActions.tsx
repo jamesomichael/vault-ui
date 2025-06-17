@@ -4,7 +4,7 @@ import { setCreateMode } from '../../../redux/vaultSlice';
 
 import { FaPlus } from 'react-icons/fa6';
 
-const AddItem = () => {
+const ItemPanelActions = () => {
 	const dispatch = useDispatch();
 
 	const activateCreateMode = () => dispatch(setCreateMode());
@@ -21,4 +21,4 @@ const AddItem = () => {
 	);
 };
 
-export default AddItem;
+export default ItemPanelActions;

@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { setActiveItem } from '../../../redux/vaultSlice';
+import { setActiveItem } from '../../../../redux/vaultSlice';
 
 type ItemType = 'login' | 'card' | 'identity' | 'note' | 'key';
 
