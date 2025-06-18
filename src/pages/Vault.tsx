@@ -7,9 +7,9 @@ const Vault = () => {
 	return (
 		<div className="h-full grid grid-rows-[3.2rem_1fr]">
 			<Header />
-			<div className="h-full overflow-hidden grid grid-cols-[17rem_1fr]">
+			<div className="h-full overflow-hidden grid grid-cols-[15.5em_1fr]">
 				<Sidebar />
-				<div className="h-full overflow-hidden grid grid-cols-[23rem_1fr]">
+				<div className="h-full overflow-hidden grid grid-cols-[22rem_1fr]">
 					<ItemPanel />
 					<ItemWindow />
 				</div>

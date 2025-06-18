@@ -33,16 +33,16 @@ const SidebarSection = ({ group, heading, data, onCreate }) => {
 				<div className="flex justify-between items-center text-slate-400">
 					<div
 						onClick={toggleIsMinimised}
-						className="group hover:cursor-pointer hover:text-slate-200 flex gap-4 items-center"
+						className="group hover:cursor-pointer hover:text-slate-200 flex gap-3 items-center"
 					>
-						<div>
+						<div className="text-sm">
 							{isMinimised ? (
 								<FaChevronRight />
 							) : (
 								<FaChevronDown />
 							)}
 						</div>
-						<span className="uppercase font-hubot font-medium text-sm">
+						<span className="uppercase font-hubot font-medium leading-none text-[0.8rem]">
 							{heading}
 						</span>
 					</div>
