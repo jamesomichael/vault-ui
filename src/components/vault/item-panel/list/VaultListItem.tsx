@@ -35,7 +35,7 @@ const VaultListItem = ({ item }: ItemProps) => {
 	return (
 		<div
 			onClick={handleClick}
-			className={`grid grid-cols-[3rem_1fr] items-center h-12 hover:cursor-pointer ${
+			className={`grid grid-cols-[3rem_1fr] items-center h-12 hover:cursor-pointer transition-colors duration-200 ${
 				isActive
 					? 'bg-slate-700 border-l-4 border-blue-300 px-1'
 					: 'hover:bg-slate-700 px-2'

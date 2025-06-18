@@ -39,7 +39,7 @@ const Field = ({
 
 	return (
 		<div>
-			<div className="group rounded hover:bg-slate-600 focus-within:bg-slate-600 px-4 py-3 flex items-center justify-between">
+			<div className="group rounded hover:bg-slate-600 focus-within:bg-slate-600 transition-colors duration-200 px-4 py-3 flex items-center justify-between">
 				<div className="w-full flex flex-col justify-center gap-2">
 					{type === 'checkbox' ? (
 						<div className="h-6 flex justify-between items-center">

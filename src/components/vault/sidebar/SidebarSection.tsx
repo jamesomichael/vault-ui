@@ -33,7 +33,7 @@ const SidebarSection = ({ group, heading, data, onCreate }) => {
 				<div className="flex justify-between items-center text-slate-400">
 					<div
 						onClick={toggleIsMinimised}
-						className="group hover:cursor-pointer hover:text-slate-200 flex gap-3 items-center"
+						className="group hover:cursor-pointer hover:text-slate-200 transition-colors duration-200 flex gap-3 items-center"
 					>
 						<div className="text-sm">
 							{isMinimised ? (
@@ -49,7 +49,7 @@ const SidebarSection = ({ group, heading, data, onCreate }) => {
 					{onCreate && (
 						<div
 							onClick={onCreate}
-							className="hover:cursor-pointer hover:text-slate-200"
+							className="hover:cursor-pointer hover:text-slate-200 transition-colors duration-200"
 						>
 							<FaPlus />
 						</div>
@@ -69,7 +69,7 @@ const SidebarSection = ({ group, heading, data, onCreate }) => {
 								onClick={() =>
 									handleActiveCategory(group, item.id)
 								}
-								className={`group hover:cursor-pointer hover:text-blue-400 flex gap-2.5 items-center text-sm ${
+								className={`group hover:cursor-pointer hover:text-blue-400 flex gap-2.5 items-center text-sm transition-colors duration-200 ${
 									isActive
 										? 'text-blue-400 font-bold'
 										: 'text-slate-100'
