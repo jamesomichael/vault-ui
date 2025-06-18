@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import vaultReducer from './vaultSlice';
+import sidebarReducer from './sidebarSlice';
 
 export const store = configureStore({
 	reducer: {
 		vault: vaultReducer,
+		sidebar: sidebarReducer,
 	},
 });
 

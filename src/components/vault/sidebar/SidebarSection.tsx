@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { setActiveCategory } from '../../../redux/sidebarSlice';
 
 import {
 	FaRegFolder,
@@ -7,16 +10,21 @@ import {
 	FaChevronDown,
 } from 'react-icons/fa6';
 
-const SidebarSection = ({
-	isFolderSection = false,
-	heading,
-	data,
-	onCreate,
-}) => {
+import type { RootState } from '../../../redux/store';
+
+const SidebarSection = ({ group, heading, data, onCreate }) => {
+	const dispatch = useDispatch();
+	const activeCategory = useSelector(
+		(state: RootState) => state.sidebar.activeCategory
+	);
 	const [isMinimised, setIsMinimised] = useState(false);
 
 	const toggleIsMinimised = () => {
 		setIsMinimised((prev) => !prev);
+	};
+
+	const handleActiveCategory = (group, id) => {
+		dispatch(setActiveCategory({ group, id }));
 	};
 
 	return (
@@ -40,7 +48,7 @@ const SidebarSection = ({
 					</div>
 					{onCreate && (
 						<div
-							onClick={onCreate()}
+							onClick={onCreate}
 							className="hover:cursor-pointer hover:text-slate-200"
 						>
 							<FaPlus />
@@ -51,20 +59,31 @@ const SidebarSection = ({
 			{!isMinimised && (
 				<div className="flex flex-col gap-3.5">
 					{data.map((item, i) => {
+						const isActive =
+							activeCategory?.group === group &&
+							activeCategory?.id === item.id;
+						const Icon = item.Icon || FaRegFolder;
 						return (
 							<div
 								key={i}
-								className="group hover:cursor-pointer hover:text-blue-400 text-slate-100 flex gap-2.5 items-center text-sm"
+								onClick={() =>
+									handleActiveCategory(group, item.id)
+								}
+								className={`group hover:cursor-pointer hover:text-blue-400 flex gap-2.5 items-center text-sm ${
+									isActive
+										? 'text-blue-400 font-bold'
+										: 'text-slate-100'
+								}`}
 							>
 								<span className="text-base leading-none">
-									{isFolderSection ? (
+									{group === 'folder' ? (
 										<FaRegFolder />
 									) : (
-										item.icon
+										<Icon />
 									)}
 								</span>
 								<span className="leading-none font-hubot">
-									{isFolderSection ? item : item.title}
+									{item.label}
 								</span>
 							</div>
 						);

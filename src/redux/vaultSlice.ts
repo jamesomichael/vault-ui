@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { vaultItems } from '../dummy-data/vault';
 
@@ -39,6 +39,41 @@ const vaultSlice = createSlice({
 		},
 	},
 });
+
+export const getFilteredItems = createSelector(
+	[(state) => state.vault.items, (state) => state.sidebar.activeCategory],
+	(items, activeCategory) => {
+		if (
+			!activeCategory ||
+			(activeCategory.group === 'default' && activeCategory.id === 'all')
+		) {
+			return items.filter(({ deletedAt }) => !deletedAt);
+		}
+
+		if (activeCategory.group === 'default') {
+			if (activeCategory.id === 'favourites') {
+				return items.filter(
+					({ isFavourite, deletedAt }) => isFavourite && !deletedAt
+				);
+			}
+			if (activeCategory.id === 'bin') {
+				return items.filter(({ deletedAt }) => deletedAt);
+			}
+		} else if (activeCategory.group === 'type') {
+			return items.filter(
+				({ type, deletedAt }) =>
+					type === activeCategory.id && !deletedAt
+			);
+		} else if (activeCategory.group === 'folder') {
+			return items.filter(
+				({ folderId, deletedAt }) =>
+					folderId === activeCategory.id && !deletedAt
+			);
+		}
+
+		return items;
+	}
+);
 
 export const {
 	addItem,
