@@ -19,7 +19,7 @@ const ViewActions = () => {
 					title="Close"
 					onClick={closeActiveItem}
 					Icon={FaXmark}
-					className="text-2xl"
+					className="text-2xl text-slate-400"
 				/>
 				<Action
 					onClick={activateEditMode}
