@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
+import EditActions from './EditActions';
 import FieldGroup from '../../../shared/FieldGroup';
 import Field from '../../../shared/Field';
 
@@ -84,7 +85,7 @@ const EditVaultItem = () => {
 					</FieldGroup>
 				</div>
 			</div>
-			{/* <ViewActions /> */}
+			<EditActions />
 		</div>
 	);
 };
