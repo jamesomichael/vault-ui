@@ -18,7 +18,12 @@ const CreateVaultItem = () => {
 				</span>
 				<div className="flex flex-col gap-8">
 					<FieldGroup>
-						<Field type="dropdown" isEditable={true} label="Type" />
+						<Field
+							type="dropdown"
+							dropdownOptions={[{ id: 'login', label: 'Login' }]}
+							isEditable={false}
+							label="Type"
+						/>
 						<Field
 							isEditable={true}
 							onChange={(e) => setName(e.target.value)}
