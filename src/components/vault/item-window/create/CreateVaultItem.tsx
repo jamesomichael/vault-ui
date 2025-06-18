@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import CreateActions from './CreateActions';
 import FieldGroup from '../../../shared/FieldGroup';
 import Field from '../../../shared/Field';
 
@@ -71,7 +72,7 @@ const CreateVaultItem = () => {
 					</FieldGroup>
 				</div>
 			</div>
-			{/* <ViewActions /> */}
+			<CreateActions />
 		</div>
 	);
 };
