@@ -9,7 +9,9 @@ interface FieldProps {
 	dropdownOptions?: { id: string; label: string }[];
 	isEditable?: boolean;
 	isPassword?: boolean;
-	onChange?: () => void;
+	onChange?: (
+		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+	) => void;
 	label: string;
 	value: string;
 	isUri?: boolean;
