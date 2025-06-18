@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface SidebarState {}
+interface FilterState {}
 
-const initialState: SidebarState = {
+const initialState: FilterState = {
 	activeCategory: { group: 'default', id: 'all' },
 	folders: [
 		// {
@@ -20,8 +20,8 @@ const initialState: SidebarState = {
 	],
 };
 
-const sidebarSlice = createSlice({
-	name: 'sidebar',
+const filterSlice = createSlice({
+	name: 'filter',
 	initialState,
 	reducers: {
 		setActiveCategory(state, action) {
@@ -30,5 +30,5 @@ const sidebarSlice = createSlice({
 	},
 });
 
-export const { setActiveCategory } = sidebarSlice.actions;
-export default sidebarSlice.reducer;
+export const { setActiveCategory } = filterSlice.actions;
+export default filterSlice.reducer;

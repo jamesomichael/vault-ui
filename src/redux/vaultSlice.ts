@@ -41,7 +41,7 @@ const vaultSlice = createSlice({
 });
 
 export const getFilteredItems = createSelector(
-	[(state) => state.vault.items, (state) => state.sidebar.activeCategory],
+	[(state) => state.vault.items, (state) => state.filter.activeCategory],
 	(items, activeCategory) => {
 		if (
 			!activeCategory ||

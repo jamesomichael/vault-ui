@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setActiveCategory } from '../../../redux/sidebarSlice';
+import { setActiveCategory } from '../../../redux/filterSlice';
 
 import {
 	FaRegFolder,
@@ -15,7 +15,7 @@ import type { RootState } from '../../../redux/store';
 const SidebarSection = ({ group, heading, data, onCreate }) => {
 	const dispatch = useDispatch();
 	const activeCategory = useSelector(
-		(state: RootState) => state.sidebar.activeCategory
+		(state: RootState) => state.filter.activeCategory
 	);
 	const [isMinimised, setIsMinimised] = useState(false);
 
