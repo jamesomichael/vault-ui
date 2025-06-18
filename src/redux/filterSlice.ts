@@ -4,6 +4,7 @@ interface FilterState {}
 
 const initialState: FilterState = {
 	activeCategory: { group: 'default', id: 'all' },
+	searchQuery: null,
 	folders: [
 		// {
 		// 	id: 'folder-1',
@@ -27,8 +28,15 @@ const filterSlice = createSlice({
 		setActiveCategory(state, action) {
 			state.activeCategory = action.payload;
 		},
+		setSearchQuery(state, action) {
+			state.searchQuery = action.payload;
+		},
+		clearSearchQuery(state) {
+			state.searchQuery = null;
+		},
 	},
 });
 
-export const { setActiveCategory } = filterSlice.actions;
+export const { setActiveCategory, setSearchQuery, clearSearchQuery } =
+	filterSlice.actions;
 export default filterSlice.reducer;

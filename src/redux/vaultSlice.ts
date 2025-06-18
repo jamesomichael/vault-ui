@@ -41,37 +41,51 @@ const vaultSlice = createSlice({
 });
 
 export const getFilteredItems = createSelector(
-	[(state) => state.vault.items, (state) => state.filter.activeCategory],
-	(items, activeCategory) => {
+	[
+		(state) => state.vault.items,
+		(state) => state.filter.activeCategory,
+		(state) => state.filter.searchQuery,
+	],
+	(items, activeCategory, searchQuery) => {
+		let filteredItems = [...items];
+
 		if (
 			!activeCategory ||
 			(activeCategory.group === 'default' && activeCategory.id === 'all')
 		) {
-			return items.filter(({ deletedAt }) => !deletedAt);
+			filteredItems = items.filter(({ deletedAt }) => !deletedAt);
 		}
 
 		if (activeCategory.group === 'default') {
 			if (activeCategory.id === 'favourites') {
-				return items.filter(
+				filteredItems = items.filter(
 					({ isFavourite, deletedAt }) => isFavourite && !deletedAt
 				);
-			}
-			if (activeCategory.id === 'bin') {
-				return items.filter(({ deletedAt }) => deletedAt);
+			} else if (activeCategory.id === 'bin') {
+				filteredItems = items.filter(({ deletedAt }) => deletedAt);
 			}
 		} else if (activeCategory.group === 'type') {
-			return items.filter(
+			filteredItems = items.filter(
 				({ type, deletedAt }) =>
 					type === activeCategory.id && !deletedAt
 			);
 		} else if (activeCategory.group === 'folder') {
-			return items.filter(
+			filteredItems = items.filter(
 				({ folderId, deletedAt }) =>
 					folderId === activeCategory.id && !deletedAt
 			);
 		}
 
-		return items;
+		if (searchQuery) {
+			const lowercaseQuery = searchQuery.toLowerCase();
+			filteredItems = filteredItems.filter(
+				({ name, username }) =>
+					name.toLowerCase().includes(lowercaseQuery) ||
+					username.toLowerCase().includes(lowercaseQuery)
+			);
+		}
+
+		return filteredItems;
 	}
 );
 
