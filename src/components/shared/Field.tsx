@@ -5,6 +5,11 @@ import { FaRegCopy } from 'react-icons/fa6';
 import { FiExternalLink } from 'react-icons/fi';
 
 interface FieldProps {
+	type?: 'text' | 'checkbox' | 'dropdown';
+	dropdownOptions?: { id: string; label: string }[];
+	isEditable?: boolean;
+	isPassword?: boolean;
+	onChange?: () => void;
 	label: string;
 	value: string;
 	isUri?: boolean;
@@ -13,6 +18,11 @@ interface FieldProps {
 }
 
 const Field = ({
+	type = 'text',
+	dropdownOptions = [],
+	isEditable = false,
+	isPassword = false,
+	onChange,
 	label,
 	value,
 	isUri = false,
@@ -27,21 +37,61 @@ const Field = ({
 
 	return (
 		<div>
-			<div className="rounded hover:bg-slate-600 px-4 py-3 flex items-center justify-between">
-				<div className="flex flex-col justify-center gap-2.5">
-					<span className="font-hubot leading-none text-xs text-slate-300">
-						{label}
-					</span>
-					<span
-						className={`${
-							isMasked ? '' : 'font-hubot'
-						} leading-none text-sm text-slate-100`}
-					>
-						{isMasked ? '•'.repeat(value.length) : value}
-					</span>
+			<div className="group rounded hover:bg-slate-600 focus-within:bg-slate-600 px-4 py-3 flex items-center justify-between">
+				<div className="w-full flex flex-col justify-center gap-2">
+					{type === 'checkbox' ? (
+						<div className="h-6 flex justify-between items-center">
+							<span className="font-hubot leading-none text-sm text-slate-100">
+								{label}
+							</span>
+							<input
+								type="checkbox"
+								disabled={!isEditable}
+								onChange={onChange}
+								checked={!!value}
+							/>
+						</div>
+					) : (
+						<>
+							<span className="font-hubot leading-none text-xs text-slate-300">
+								{label}
+							</span>
+							{type === 'dropdown' ? (
+								<select
+									disabled={!isEditable}
+									onChange={onChange}
+									value={dropdownOptions[0]?.label}
+									className="font-hubot w-full h-6 leading-none text-sm text-slate-100 outline-none rounded bg-transparent"
+								>
+									{dropdownOptions.map((opt) => (
+										<option
+											key={opt.id}
+											value={opt.label}
+											disabled={!isEditable}
+										>
+											{opt.label}
+										</option>
+									))}
+								</select>
+							) : (
+								<input
+									disabled={!isEditable}
+									onChange={onChange}
+									value={
+										isMasked
+											? '•'.repeat(value.length)
+											: value
+									}
+									className={`${
+										isMasked ? '' : 'font-hubot'
+									} w-full h-6 leading-none text-sm text-slate-100 outline-none bg-transparent`}
+								/>
+							)}
+						</>
+					)}
 				</div>
 				<div className="flex items-center text-xl gap-5 text-slate-300">
-					{shouldMask && (
+					{(isPassword || shouldMask) && (
 						<span
 							onClick={toggleIsMasked}
 							className="hover:cursor-pointer hover:text-slate-100"
@@ -53,7 +103,7 @@ const Field = ({
 							)}
 						</span>
 					)}
-					{isUri && (
+					{isUri && !isEditable && (
 						<a
 							href={value}
 							target="_blank"
