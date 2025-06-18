@@ -13,7 +13,7 @@ interface FieldProps {
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => void;
 	label: string;
-	value: string;
+	value?: string | boolean;
 	isUri?: boolean;
 	shouldMask?: boolean;
 	canCopy?: boolean;
