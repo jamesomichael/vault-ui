@@ -7,8 +7,8 @@ import { FaPlus } from 'react-icons/fa6';
 const Users = ({ users, onSelect }) => {
 	return (
 		<div className="flex flex-wrap justify-center items-center gap-8">
-			{users?.map(({ id, name }, i) => (
-				<User key={i} id={id} name={name} onClick={onSelect} />
+			{users?.map(({ id, username }, i) => (
+				<User key={i} id={id} username={username} onClick={onSelect} />
 			))}
 			<div className="group transition-all duration-200 hover:cursor-pointer p-4 flex flex-col gap-4 md:gap-5 justify-center items-center text-white w-40 h-48 md:w-56 md:h-64 rounded-xl">
 				<Link
