@@ -3,7 +3,10 @@ import Header from '../components/vault/header/Header';
 import ItemPanel from '../components/vault/item-panel/ItemPanel';
 import Sidebar from '../components/vault/sidebar/Sidebar';
 
+import { useEncryptionKey } from '../hooks/useEncryptionKey';
+
 const Vault = () => {
+	useEncryptionKey();
 	return (
 		<div className="h-full grid grid-rows-[3.2rem_1fr]">
 			<Header />
