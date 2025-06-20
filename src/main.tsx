@@ -6,14 +6,18 @@ import { Provider } from 'react-redux';
 
 import { store } from './redux/store';
 
+import { EncryptionProvider } from './context/EncryptionContext.tsx';
+
 import App from './App.tsx';
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<Provider store={store}>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
-		</Provider>
+		<EncryptionProvider>
+			<Provider store={store}>
+				<BrowserRouter>
+					<App />
+				</BrowserRouter>
+			</Provider>
+		</EncryptionProvider>
 	</StrictMode>
 );
