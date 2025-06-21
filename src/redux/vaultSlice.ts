@@ -5,9 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { vaultItems } from '../dummy-data/vault';
-
-import { encryptVaultItem } from '../utils/crypto';
+import { decryptVaultItem, encryptVaultItem } from '../utils/crypto';
 
 const VAULT_API_HOST = import.meta.env.VITE_VAULT_API_HOST!;
 
@@ -21,7 +19,7 @@ interface VaultState {
 const initialState: VaultState = {
 	activeItem: null,
 	windowMode: null,
-	items: vaultItems,
+	items: [],
 };
 
 export const createEncryptedItem = createAsyncThunk(
@@ -37,6 +35,47 @@ export const createEncryptedItem = createAsyncThunk(
 			return item;
 		} catch (error) {
 			console.error('Failed to create encrypted item:', error.message);
+			throw error;
+		}
+	}
+);
+
+export const editItem = createAsyncThunk(
+	'vault/editItem',
+	async ({ item, key }: { item: any; key: CryptoKey }) => {
+		try {
+			const { id } = item;
+			const { blob, iv } = await encryptVaultItem(item, key);
+			await axios.patch(
+				`${VAULT_API_HOST}/api/items/${id}`,
+				{ blob, iv },
+				{ withCredentials: true }
+			);
+			return item;
+		} catch (error) {
+			console.error('Failed to edit item:', error.message);
+			throw error;
+		}
+	}
+);
+
+export const fetchItems = createAsyncThunk(
+	'vault/fetchItems',
+	async ({ key }: { key: CryptoKey }) => {
+		try {
+			const response = await axios.get(`${VAULT_API_HOST}/api/items`, {
+				withCredentials: true,
+			});
+			const data = response.data;
+			const decryptedData = await Promise.all(
+				data.map(async ({ blob, iv, ...metadata }) => {
+					const decryptedItem = await decryptVaultItem(blob, iv, key);
+					return { ...decryptedItem, ...metadata };
+				})
+			);
+			return decryptedData;
+		} catch (error) {
+			console.error('Failed to get vault items:', error.message);
 			throw error;
 		}
 	}
@@ -67,6 +106,20 @@ const vaultSlice = createSlice({
 			state.items.push(action.payload);
 			state.windowMode = 'view';
 			state.activeItem = action.payload;
+		});
+		builder.addCase(fetchItems.fulfilled, (state, action) => {
+			state.items = action.payload;
+		});
+		builder.addCase(editItem.fulfilled, (state, action) => {
+			const updatedItem = action.payload;
+			const index = state.items.findIndex(
+				(item) => item.id === updatedItem.id
+			);
+			if (index !== -1) {
+				state.items[index] = updatedItem;
+			}
+			state.windowMode = 'view';
+			state.activeItem = updatedItem;
 		});
 	},
 });
