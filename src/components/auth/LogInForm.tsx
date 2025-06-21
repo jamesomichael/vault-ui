@@ -5,18 +5,27 @@ import { LuLock } from 'react-icons/lu';
 
 import { useLogIn } from '../../hooks/useLogIn';
 
-const LogInForm = ({ user, onLogOut }) => {
+import type { ActiveUser } from '../../types/user';
+
+interface Props {
+	user: ActiveUser;
+	onLogOut?: () => void;
+}
+
+const LogInForm = ({ user, onLogOut }: Props) => {
 	const { logIn, password, setPassword, isDisabled, error, setError } =
 		useLogIn();
 
-	const handlePasswordEntry = (e) => {
+	const handlePasswordEntry = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setError(null);
 		setPassword(e.target.value);
 	};
 
-	const handleLogIn = (e) => {
+	const handleLogIn = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		logIn(user.username);
+		if (user) {
+			logIn(user.username);
+		}
 	};
 
 	return (
@@ -26,7 +35,7 @@ const LogInForm = ({ user, onLogOut }) => {
 				Your vault is locked
 			</span>
 			<span className="font-hubot text-base leading-none">
-				{user.username}
+				{user?.username}
 			</span>
 			<form
 				onSubmit={handleLogIn}
@@ -39,7 +48,7 @@ const LogInForm = ({ user, onLogOut }) => {
 					value={password}
 					onChange={handlePasswordEntry}
 				/>
-				<Button text="Unlock" onClick={handleLogIn} />
+				<Button text="Unlock" type="submit" />
 				<div className="flex justify-center items-center">
 					<span className="font-hubot leading-none text-xs sm:text-sm font-medium">
 						or

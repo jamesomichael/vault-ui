@@ -4,7 +4,7 @@ import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { FaRegCopy } from 'react-icons/fa6';
 import { FiExternalLink } from 'react-icons/fi';
 
-interface FieldProps {
+interface Props {
 	type?: 'text' | 'checkbox' | 'dropdown';
 	dropdownOptions?: { id: string; label: string }[];
 	isEditable?: boolean;
@@ -13,7 +13,7 @@ interface FieldProps {
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => void;
 	label: string;
-	value?: string | boolean;
+	value: string | boolean;
 	isUri?: boolean;
 	shouldMask?: boolean;
 	canCopy?: boolean;
@@ -30,7 +30,7 @@ const Field = ({
 	isUri = false,
 	shouldMask = false,
 	canCopy = false,
-}: FieldProps) => {
+}: Props) => {
 	const [isMasked, setIsMasked] = useState(shouldMask);
 
 	const toggleIsMasked = () => setIsMasked((prev) => !prev);

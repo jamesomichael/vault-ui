@@ -1,7 +1,9 @@
-interface InputProps {
+interface Props {
 	placeholder?: string;
-	value?: string | null;
-	onChange?: () => void;
+	value: string;
+	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	type: string;
+	disabled: boolean;
 }
 
 const Input = ({
@@ -10,7 +12,7 @@ const Input = ({
 	value,
 	onChange,
 	disabled = false,
-}: InputProps) => {
+}: Props) => {
 	const isPassword = type === 'password';
 	return (
 		<input

@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface ActionProps {
+interface Props {
 	title: string;
 	isDestructive?: boolean;
 	onClick?: () => void;
@@ -14,7 +14,7 @@ const Action = ({
 	onClick,
 	className,
 	Icon,
-}: ActionProps) => {
+}: Props) => {
 	return (
 		<button
 			onClick={onClick}

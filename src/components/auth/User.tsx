@@ -1,10 +1,12 @@
 import { LuUserRound } from 'react-icons/lu';
 
-interface UserProps {
-	name: string;
+interface Props {
+	id: string;
+	username: string;
+	onClick: (id: string, username: string) => void;
 }
 
-const User = ({ id, username, onClick }: UserProps) => {
+const User = ({ id, username, onClick }: Props) => {
 	return (
 		<div
 			onClick={() => onClick(id, username)}

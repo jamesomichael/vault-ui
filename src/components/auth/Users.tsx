@@ -3,8 +3,14 @@ import { Link } from 'react-router';
 import User from './User';
 
 import { FaPlus } from 'react-icons/fa6';
+import type { User as UserType } from '../../types/user';
 
-const Users = ({ users, onSelect }) => {
+interface Props {
+	users: UserType[];
+	onSelect: () => void;
+}
+
+const Users = ({ users, onSelect }: Props) => {
 	return (
 		<div className="flex flex-wrap justify-center items-center gap-8">
 			{users?.map(({ id, username }, i) => (
