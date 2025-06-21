@@ -24,6 +24,16 @@ const EditVaultItem = () => {
 		activeItem.isFavourite || false
 	);
 
+	const loginItemData = {
+		id: activeItem.id,
+		type: 'login',
+		name,
+		username,
+		password,
+		uri,
+		isFavourite,
+	};
+
 	return (
 		<div className="h-full grid grid-rows-[1fr_3.5rem]">
 			<div className="w-full h-full max-w-screen-md mx-auto flex flex-col gap-3 p-4">
@@ -85,7 +95,7 @@ const EditVaultItem = () => {
 					</FieldGroup>
 				</div>
 			</div>
-			<EditActions />
+			<EditActions data={loginItemData} />
 		</div>
 	);
 };

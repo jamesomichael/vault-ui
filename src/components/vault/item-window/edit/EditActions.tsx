@@ -2,12 +2,43 @@ import { useDispatch } from 'react-redux';
 
 import Action from '../../../shared/Action';
 
-import { clearActiveItem } from '../../../../redux/vaultSlice';
+import { useEncryptionKey } from '../../../../hooks/useEncryptionKey';
+
+import { editItem, clearActiveItem } from '../../../../redux/vaultSlice';
 
 import { FaRegTrashCan, FaRegFloppyDisk, FaXmark } from 'react-icons/fa6';
 
-const EditActions = () => {
+interface LoginItemData {
+	id: string;
+	type: 'login';
+	name: string;
+	username: string;
+	password: string;
+	uri: string;
+	isFavourite: boolean;
+	folderId?: string | null;
+}
+interface EditActionsProps {
+	data: LoginItemData;
+}
+
+const EditActions = ({ data }: EditActionsProps) => {
 	const dispatch = useDispatch();
+	const { encryptionKey } = useEncryptionKey();
+
+	const saveItem = async () => {
+		if (!encryptionKey) {
+			console.error('No encryption key found.');
+			return;
+		}
+		try {
+			await dispatch(
+				editItem({ item: data, key: encryptionKey })
+			).unwrap();
+		} catch (error) {
+			console.error('Failed to save item:', error.message);
+		}
+	};
 
 	const closeActiveItem = () => dispatch(clearActiveItem());
 
@@ -21,7 +52,7 @@ const EditActions = () => {
 					className="text-2xl text-slate-400"
 				/>
 				<Action
-					onClick={() => {}}
+					onClick={saveItem}
 					title="Save"
 					Icon={FaRegFloppyDisk}
 					className="text-2xl"
