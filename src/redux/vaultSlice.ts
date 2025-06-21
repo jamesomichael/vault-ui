@@ -1,6 +1,15 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
+import {
+	createAsyncThunk,
+	createSelector,
+	createSlice,
+} from '@reduxjs/toolkit';
+import axios from 'axios';
 
 import { vaultItems } from '../dummy-data/vault';
+
+import { encryptVaultItem } from '../utils/crypto';
+
+const VAULT_API_HOST = import.meta.env.VITE_VAULT_API_HOST!;
 
 type WindowMode = 'view' | 'edit' | 'create' | null;
 interface VaultState {
@@ -15,13 +24,28 @@ const initialState: VaultState = {
 	items: vaultItems,
 };
 
+export const createEncryptedItem = createAsyncThunk(
+	'vault/createEncryptedItem',
+	async ({ item, key }: { item: any; key: CryptoKey }) => {
+		try {
+			const { blob, iv } = await encryptVaultItem(item, key);
+			await axios.post(
+				`${VAULT_API_HOST}/api/items`,
+				{ blob, iv },
+				{ withCredentials: true }
+			);
+			return item;
+		} catch (error) {
+			console.error('Failed to create encrypted item:', error.message);
+			throw error;
+		}
+	}
+);
+
 const vaultSlice = createSlice({
 	name: 'vault',
 	initialState,
 	reducers: {
-		addItem(state, action) {
-			state.items.push(action.payload);
-		},
 		setActiveItem(state, action) {
 			state.windowMode = 'view';
 			state.activeItem = action.payload;
@@ -37,6 +61,13 @@ const vaultSlice = createSlice({
 			state.windowMode = null;
 			state.activeItem = null;
 		},
+	},
+	extraReducers: (builder) => {
+		builder.addCase(createEncryptedItem.fulfilled, (state, action) => {
+			state.items.push(action.payload);
+			state.windowMode = 'view';
+			state.activeItem = action.payload;
+		});
 	},
 });
 

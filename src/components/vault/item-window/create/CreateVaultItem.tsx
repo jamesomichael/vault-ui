@@ -11,6 +11,16 @@ const CreateVaultItem = () => {
 	const [uri, setUri] = useState('');
 	const [isFavourite, setIsFavourite] = useState(false);
 
+	const loginItemData = {
+		type: 'login',
+		name,
+		username,
+		password,
+		uri,
+		isFavourite,
+		folderId: null,
+	};
+
 	return (
 		<div className="h-full grid grid-rows-[1fr_3.5rem]">
 			<div className="w-full h-full max-w-screen-md mx-auto flex flex-col gap-3 p-4">
@@ -72,7 +82,7 @@ const CreateVaultItem = () => {
 					</FieldGroup>
 				</div>
 			</div>
-			<CreateActions />
+			<CreateActions data={loginItemData} />
 		</div>
 	);
 };
