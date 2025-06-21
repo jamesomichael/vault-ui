@@ -10,11 +10,31 @@ import { decryptVaultItem, encryptVaultItem } from '../utils/crypto';
 const VAULT_API_HOST = import.meta.env.VITE_VAULT_API_HOST!;
 
 type WindowMode = 'view' | 'edit' | 'create' | null;
-interface VaultState {
-	activeItem: any;
-	windowMode: WindowMode;
-	items: any[];
+
+interface LoginItem {
+	type: 'login';
+	id: string;
+	name: string;
+	username: string;
+	password: string;
+	uri: string;
+	isFavourite: boolean;
+	folderId?: string | null;
+	userId: string;
+	createdAt: string;
+	updatedAt: string;
+	deletedAt?: string | null;
 }
+
+type VaultItem = LoginItem;
+
+interface VaultState {
+	activeItem: VaultItem | null;
+	windowMode: WindowMode;
+	items: VaultItem[];
+}
+
+type CreateItem = Partial<LoginItem>;
 
 const initialState: VaultState = {
 	activeItem: null,
@@ -24,7 +44,7 @@ const initialState: VaultState = {
 
 export const createItem = createAsyncThunk(
 	'vault/createEncryptedItem',
-	async ({ item, key }: { item: any; key: CryptoKey }) => {
+	async ({ item, key }: { item: CreateItem; key: CryptoKey }) => {
 		try {
 			const { blob, iv } = await encryptVaultItem(item, key);
 			await axios.post(
@@ -42,7 +62,7 @@ export const createItem = createAsyncThunk(
 
 export const editItem = createAsyncThunk(
 	'vault/editItem',
-	async ({ item, key }: { item: any; key: CryptoKey }) => {
+	async ({ item, key }: { item: VaultItem; key: CryptoKey }) => {
 		try {
 			const { id } = item;
 			const { blob, iv } = await encryptVaultItem(item, key);
@@ -61,7 +81,13 @@ export const editItem = createAsyncThunk(
 
 export const deleteItem = createAsyncThunk(
 	'vault/deleteItem',
-	async ({ id, shouldHardDelete }: { id: string }) => {
+	async ({
+		id,
+		shouldHardDelete,
+	}: {
+		id: string;
+		shouldHardDelete: boolean;
+	}) => {
 		try {
 			await axios.delete(`${VAULT_API_HOST}/api/items/${id}`, {
 				withCredentials: true,

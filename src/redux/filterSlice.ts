@@ -1,6 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface FilterState {}
+interface ActiveCategory {
+	group: string;
+	id: string;
+}
+
+interface Folder {
+	id: string;
+	label: string;
+	createdAt: string;
+	updatedAt: string;
+	deletedAt?: string | null;
+}
+
+interface FilterState {
+	activeCategory: ActiveCategory;
+	searchQuery: string | null;
+	folders: Folder[];
+}
 
 const initialState: FilterState = {
 	activeCategory: { group: 'default', id: 'all' },
