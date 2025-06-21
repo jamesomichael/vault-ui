@@ -12,17 +12,17 @@ const EditVaultItem = () => {
 		(state: RootState) => state.vault.activeItem
 	);
 
+	const [name, setName] = useState(activeItem?.name || '');
+	const [username, setUsername] = useState(activeItem?.username || '');
+	const [password, setPassword] = useState(activeItem?.password || '');
+	const [uri, setUri] = useState(activeItem?.uri || '');
+	const [isFavourite, setIsFavourite] = useState(
+		activeItem?.isFavourite || false
+	);
+
 	if (!activeItem) {
 		return null;
 	}
-
-	const [name, setName] = useState(activeItem.name || '');
-	const [username, setUsername] = useState(activeItem.username || '');
-	const [password, setPassword] = useState(activeItem.password || '');
-	const [uri, setUri] = useState(activeItem.uri || '');
-	const [isFavourite, setIsFavourite] = useState(
-		activeItem.isFavourite || false
-	);
 
 	const loginItemData = {
 		id: activeItem.id,
