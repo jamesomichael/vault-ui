@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 
-import { useEncryptionKey } from './useEncryptionKey';
+import { useEncryption } from './useEncryption';
 
 const VAULT_API_HOST = import.meta.env.VITE_VAULT_API_HOST!;
 
@@ -10,7 +10,7 @@ export const useLogIn = () => {
 	const navigate = useNavigate();
 
 	const [password, setPassword] = useState('');
-	const { deriveAndSetEncryptionKey } = useEncryptionKey();
+	const { deriveAndSetEncryptionKey } = useEncryption();
 	const [isDisabled, setIsDisabled] = useState(false);
 	const [error, setError] = useState(null);
 

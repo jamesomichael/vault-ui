@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 
 import Action from '../../../shared/Action';
 
-import { useEncryptionKey } from '../../../../hooks/useEncryptionKey';
+import { useEncryption } from '../../../../hooks/useEncryption';
 
 import { editItem, clearActiveItem } from '../../../../redux/vaultSlice';
 
@@ -24,7 +24,7 @@ interface EditActionsProps {
 
 const EditActions = ({ data }: EditActionsProps) => {
 	const dispatch = useDispatch();
-	const { encryptionKey } = useEncryptionKey();
+	const { encryptionKey } = useEncryption();
 
 	const saveItem = async () => {
 		if (!encryptionKey) {

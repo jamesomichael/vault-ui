@@ -8,11 +8,11 @@ import Sidebar from '../components/vault/sidebar/Sidebar';
 
 import { fetchItems } from '../redux/vaultSlice';
 
-import { useEncryptionKey } from '../hooks/useEncryptionKey';
+import { useEncryption } from '../hooks/useEncryption';
 
 const Vault = () => {
 	const dispatch = useDispatch();
-	const { encryptionKey } = useEncryptionKey();
+	const { encryptionKey } = useEncryption();
 
 	useEffect(() => {
 		if (encryptionKey) {

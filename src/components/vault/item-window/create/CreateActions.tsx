@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 
 import Action from '../../../shared/Action';
 
-import { useEncryptionKey } from '../../../../hooks/useEncryptionKey';
+import { useEncryption } from '../../../../hooks/useEncryption';
 import { clearActiveItem, createItem } from '../../../../redux/vaultSlice';
 
 import { FaRegFloppyDisk, FaXmark } from 'react-icons/fa6';
@@ -22,7 +22,7 @@ interface CreateActionsProps {
 
 const CreateActions = ({ data }: CreateActionsProps) => {
 	const dispatch = useDispatch();
-	const { encryptionKey } = useEncryptionKey();
+	const { encryptionKey } = useEncryption();
 
 	const saveItem = async () => {
 		if (!encryptionKey) {

@@ -1,13 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router';
 
-import { useEncryption } from '../context/EncryptionContext';
+import { EncryptionContext } from '../context/EncryptionContext';
 import { generateEncryptionKey } from '../utils/crypto';
 
-export const useEncryptionKey = () => {
+export const useEncryption = () => {
+	const context = useContext(EncryptionContext);
 	const navigate = useNavigate();
-	const { encryptionKey, setEncryptionKey, clearEncryptionKey } =
-		useEncryption();
+
+	if (!context) {
+		throw new Error(
+			'useEncryption must be used within an EncryptionProvider'
+		);
+	}
+
+	const { encryptionKey, setEncryptionKey, clearEncryptionKey } = context;
 
 	useEffect(() => {
 		if (!encryptionKey) {
