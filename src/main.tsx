@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 
 import { store } from './redux/store';
 
-import { EncryptionProvider } from './context/EncryptionContext.tsx';
+import { EncryptionProvider } from './context/EncryptionProvider.tsx';
 
 import App from './App.tsx';
 
