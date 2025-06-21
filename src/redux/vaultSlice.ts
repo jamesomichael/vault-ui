@@ -59,6 +59,22 @@ export const editItem = createAsyncThunk(
 	}
 );
 
+export const deleteItem = createAsyncThunk(
+	'vault/deleteItem',
+	async ({ id, shouldHardDelete }: { id: string }) => {
+		try {
+			await axios.delete(`${VAULT_API_HOST}/api/items/${id}`, {
+				withCredentials: true,
+			});
+
+			return { id, shouldHardDelete };
+		} catch (error) {
+			console.error('Failed to delete item:', error.message);
+			throw error;
+		}
+	}
+);
+
 export const fetchItems = createAsyncThunk(
 	'vault/fetchItems',
 	async ({ key }: { key: CryptoKey }) => {
@@ -121,6 +137,21 @@ const vaultSlice = createSlice({
 			state.windowMode = 'view';
 			state.activeItem = updatedItem;
 		});
+		builder.addCase(deleteItem.fulfilled, (state, action) => {
+			const { id, shouldHardDelete } = action.payload;
+			if (shouldHardDelete) {
+				state.items = state.items.filter((item) => item.id !== id);
+			} else {
+				const index = state.items.findIndex((item) => item.id === id);
+				if (index !== -1) {
+					const item = state.items[index];
+					state.items[index] = {
+						...item,
+						deletedAt: new Date().toISOString(),
+					};
+				}
+			}
+		});
 	},
 });
 
@@ -173,11 +204,6 @@ export const getFilteredItems = createSelector(
 	}
 );
 
-export const {
-	addItem,
-	setActiveItem,
-	setEditMode,
-	setCreateMode,
-	clearActiveItem,
-} = vaultSlice.actions;
+export const { setActiveItem, setEditMode, setCreateMode, clearActiveItem } =
+	vaultSlice.actions;
 export default vaultSlice.reducer;
