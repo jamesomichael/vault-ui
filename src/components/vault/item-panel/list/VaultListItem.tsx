@@ -32,6 +32,15 @@ const VaultListItem = ({ item }: ItemProps) => {
 		dispatch(setActiveItem(item));
 	};
 
+	const getFaviconUrl = (uri: string) => {
+		try {
+			const hostname = new URL(uri).hostname;
+			return `https://www.google.com/s2/favicons?sz=64&domain=${hostname}`;
+		} catch {
+			return 'globe.svg';
+		}
+	};
+
 	return (
 		<div
 			onClick={handleClick}
@@ -43,9 +52,7 @@ const VaultListItem = ({ item }: ItemProps) => {
 		>
 			<div className="h-full flex items-center justify-center p-3">
 				<img
-					src={`https://www.google.com/s2/favicons?sz=64&domain=${
-						new URL(item.uri).hostname
-					}`}
+					src={getFaviconUrl(item.uri)}
 					alt={`${name} favicon`}
 					className="h-full"
 				/>
