@@ -2,15 +2,43 @@ import { useDispatch } from 'react-redux';
 
 import Action from '../../../shared/Action';
 
-import { setEditMode, clearActiveItem } from '../../../../redux/vaultSlice';
+import {
+	setEditMode,
+	clearActiveItem,
+	deleteItem,
+} from '../../../../redux/vaultSlice';
 
 import { FaRegTrashCan, FaPencil, FaXmark } from 'react-icons/fa6';
 
-const ViewActions = () => {
+interface LoginItemData {
+	id: string;
+	type: 'login';
+	name: string;
+	username: string;
+	password: string;
+	uri: string;
+	isFavourite: boolean;
+	folderId?: string | null;
+}
+interface ViewActionsProps {
+	data: LoginItemData;
+}
+
+const ViewActions = ({ data }: ViewActionsProps) => {
 	const dispatch = useDispatch();
 
 	const closeActiveItem = () => dispatch(clearActiveItem());
 	const activateEditMode = () => dispatch(setEditMode());
+
+	const handleDeletion = async () => {
+		try {
+			const shouldHardDelete = !!data.deletedAt;
+			await dispatch(deleteItem({ id: data.id, shouldHardDelete }));
+			dispatch(clearActiveItem());
+		} catch (error) {
+			console.error(`Failed to delete item:`, error.message);
+		}
+	};
 
 	return (
 		<div className="h-full border-t-[1px] border-slate-950 bg-slate-700 flex items-center justify-between px-4 py-2">
@@ -31,6 +59,7 @@ const ViewActions = () => {
 			<div className="h-full flex items-center gap-3">
 				<Action
 					title="Delete"
+					onClick={handleDeletion}
 					Icon={FaRegTrashCan}
 					className="text-lg"
 					isDestructive={true}

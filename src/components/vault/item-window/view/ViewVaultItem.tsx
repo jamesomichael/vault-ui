@@ -36,7 +36,7 @@ const ViewVaultItem = ({ item }) => {
 					<Timestamps />
 				</div>
 			</div>
-			<ViewActions />
+			<ViewActions data={item} />
 		</div>
 	);
 };
