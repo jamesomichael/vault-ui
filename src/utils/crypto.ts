@@ -24,3 +24,21 @@ export const generateEncryptionKey = async (password: string, salt: string) => {
 
 	return key;
 };
+
+export const encryptVaultItem = async (item, key) => {
+	const encoder = new TextEncoder();
+	const iv = crypto.getRandomValues(new Uint8Array(12));
+
+	const encodedItem = encoder.encode(JSON.stringify(item));
+
+	const ciphertext = await crypto.subtle.encrypt(
+		{ name: 'AES-GCM', iv },
+		key,
+		encodedItem
+	);
+
+	return {
+		blob: btoa(String.fromCharCode(...new Uint8Array(ciphertext))),
+		iv: btoa(String.fromCharCode(...iv)),
+	};
+};
