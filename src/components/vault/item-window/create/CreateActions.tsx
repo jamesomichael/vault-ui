@@ -3,10 +3,7 @@ import { useDispatch } from 'react-redux';
 import Action from '../../../shared/Action';
 
 import { useEncryptionKey } from '../../../../hooks/useEncryptionKey';
-import {
-	clearActiveItem,
-	createEncryptedItem,
-} from '../../../../redux/vaultSlice';
+import { clearActiveItem, createItem } from '../../../../redux/vaultSlice';
 
 import { FaRegFloppyDisk, FaXmark } from 'react-icons/fa6';
 
@@ -32,10 +29,9 @@ const CreateActions = ({ data }: CreateActionsProps) => {
 			console.error('No encryption key found.');
 			return;
 		}
-
 		try {
 			await dispatch(
-				createEncryptedItem({ item: data, key: encryptionKey })
+				createItem({ item: data, key: encryptionKey })
 			).unwrap();
 		} catch (error) {
 			console.error('Failed to save item:', error.message);

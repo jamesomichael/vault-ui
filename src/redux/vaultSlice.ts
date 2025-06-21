@@ -22,7 +22,7 @@ const initialState: VaultState = {
 	items: [],
 };
 
-export const createEncryptedItem = createAsyncThunk(
+export const createItem = createAsyncThunk(
 	'vault/createEncryptedItem',
 	async ({ item, key }: { item: any; key: CryptoKey }) => {
 		try {
@@ -34,7 +34,7 @@ export const createEncryptedItem = createAsyncThunk(
 			);
 			return item;
 		} catch (error) {
-			console.error('Failed to create encrypted item:', error.message);
+			console.error('Failed to create item:', error.message);
 			throw error;
 		}
 	}
@@ -102,7 +102,7 @@ const vaultSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(createEncryptedItem.fulfilled, (state, action) => {
+		builder.addCase(createItem.fulfilled, (state, action) => {
 			state.items.push(action.payload);
 			state.windowMode = 'view';
 			state.activeItem = action.payload;
