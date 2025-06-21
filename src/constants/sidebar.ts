@@ -3,11 +3,11 @@ import { SlGlobe } from 'react-icons/sl';
 import {
 	FaRegStar,
 	FaRegTrashCan,
-	FaRegCreditCard,
-	FaRegIdCard,
+	// FaRegCreditCard,
+	// FaRegIdCard,
 } from 'react-icons/fa6';
-import { FaRegStickyNote } from 'react-icons/fa';
-import { HiOutlineKey } from 'react-icons/hi2';
+// import { FaRegStickyNote } from 'react-icons/fa';
+// import { HiOutlineKey } from 'react-icons/hi2';
 
 export const categories = {
 	default: [

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useEncryption } from '../context/EncryptionContext';
-import { generateEncryptionKey } from '../utils/crypto'; // You may need to move/create this
+import { generateEncryptionKey } from '../utils/crypto';
 
 export const useEncryptionKey = () => {
 	const navigate = useNavigate();
