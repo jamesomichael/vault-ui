@@ -1,3 +1,6 @@
+const binaryToUint8 = (b64: string) =>
+	Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+
 export const generateEncryptionKey = async (password: string, salt: string) => {
 	const encoder = new TextEncoder();
 	const baseKey = await window.crypto.subtle.importKey(
@@ -41,4 +44,24 @@ export const encryptVaultItem = async (item, key) => {
 		blob: btoa(String.fromCharCode(...new Uint8Array(ciphertext))),
 		iv: btoa(String.fromCharCode(...iv)),
 	};
+};
+
+export const decryptVaultItem = async (
+	blob: string,
+	iv: string,
+	key: CryptoKey
+) => {
+	const encryptedBlob = binaryToUint8(blob);
+	const ivBytes = binaryToUint8(iv);
+
+	const decryptedBuffer = await crypto.subtle.decrypt(
+		{ name: 'AES-GCM', iv: ivBytes },
+		key,
+		encryptedBlob
+	);
+
+	const decoder = new TextDecoder();
+	const decryptedItem = decoder.decode(decryptedBuffer);
+
+	return JSON.parse(decryptedItem);
 };
