@@ -7,20 +7,13 @@ import { clearActiveItem, createItem } from '../../../../redux/vaultSlice';
 
 import { FaRegFloppyDisk, FaXmark } from 'react-icons/fa6';
 
-interface LoginItemData {
-	type: 'login';
-	name: string;
-	username: string;
-	password: string;
-	uri: string;
-	isFavourite: boolean;
-	folderId: string | null;
-}
-interface CreateActionsProps {
-	data: LoginItemData;
+import type { CreateItem } from '../../../../types/items';
+
+interface Props {
+	data: CreateItem;
 }
 
-const CreateActions = ({ data }: CreateActionsProps) => {
+const CreateActions = ({ data }: Props) => {
 	const dispatch = useDispatch();
 	const { encryptionKey } = useEncryption();
 

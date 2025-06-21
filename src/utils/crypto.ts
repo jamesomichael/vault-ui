@@ -1,3 +1,5 @@
+import type { VaultItem, CreateItem } from '../types/items';
+
 const binaryToUint8 = (b64: string) =>
 	Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
 
@@ -28,7 +30,10 @@ export const generateEncryptionKey = async (password: string, salt: string) => {
 	return key;
 };
 
-export const encryptVaultItem = async (item, key) => {
+export const encryptVaultItem = async (
+	item: VaultItem | CreateItem,
+	key: CryptoKey
+) => {
 	const encoder = new TextEncoder();
 	const iv = crypto.getRandomValues(new Uint8Array(12));
 

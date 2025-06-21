@@ -7,34 +7,10 @@ import axios from 'axios';
 
 import { decryptVaultItem, encryptVaultItem } from '../utils/crypto';
 
+import type { VaultItem, CreateItem, EncryptedItem } from '../types/items';
+import type { VaultState } from '../types/vault';
+
 const VAULT_API_HOST = import.meta.env.VITE_VAULT_API_HOST!;
-
-type WindowMode = 'view' | 'edit' | 'create' | null;
-
-interface LoginItem {
-	type: 'login';
-	id: string;
-	name: string;
-	username: string;
-	password: string;
-	uri: string;
-	isFavourite: boolean;
-	folderId?: string | null;
-	userId: string;
-	createdAt: string;
-	updatedAt: string;
-	deletedAt?: string | null;
-}
-
-type VaultItem = LoginItem;
-
-interface VaultState {
-	activeItem: VaultItem | null;
-	windowMode: WindowMode;
-	items: VaultItem[];
-}
-
-type CreateItem = Partial<LoginItem>;
 
 const initialState: VaultState = {
 	activeItem: null,
@@ -110,7 +86,7 @@ export const fetchItems = createAsyncThunk(
 			});
 			const data = response.data;
 			const decryptedData = await Promise.all(
-				data.map(async ({ blob, iv, ...metadata }) => {
+				data.map(async ({ blob, iv, ...metadata }: EncryptedItem) => {
 					const decryptedItem = await decryptVaultItem(blob, iv, key);
 					return { ...decryptedItem, ...metadata };
 				})
@@ -194,26 +170,36 @@ export const getFilteredItems = createSelector(
 			!activeCategory ||
 			(activeCategory.group === 'default' && activeCategory.id === 'all')
 		) {
-			filteredItems = items.filter(({ deletedAt }) => !deletedAt);
+			filteredItems = items.filter(
+				({ deletedAt }: VaultItem) => !deletedAt
+			);
 		}
 
 		if (activeCategory.group === 'default') {
 			if (activeCategory.id === 'favourites') {
 				filteredItems = items.filter(
-					({ isFavourite, deletedAt }) => isFavourite && !deletedAt
+					({ isFavourite, deletedAt }: VaultItem) =>
+						isFavourite && !deletedAt
 				);
 			} else if (activeCategory.id === 'bin') {
-				filteredItems = items.filter(({ deletedAt }) => deletedAt);
+				filteredItems = items.filter(
+					({ deletedAt }: VaultItem) => deletedAt
+				);
 			}
 		} else if (activeCategory.group === 'type') {
 			filteredItems = items.filter(
-				({ type, deletedAt }) =>
+				({ type, deletedAt }: VaultItem) =>
 					type === activeCategory.id && !deletedAt
 			);
 		} else if (activeCategory.group === 'folder') {
 			filteredItems = items.filter(
-				({ folderId, deletedAt }) =>
-					folderId === activeCategory.id && !deletedAt
+				({
+					folderId,
+					deletedAt,
+				}: {
+					folderId: string;
+					deletedAt: string;
+				}) => folderId === activeCategory.id && !deletedAt
 			);
 		}
 
