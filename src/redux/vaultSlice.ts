@@ -19,16 +19,23 @@ const initialState: VaultState = {
 };
 
 export const createItem = createAsyncThunk(
-	'vault/createEncryptedItem',
+	'vault/createItem',
 	async ({ item, key }: { item: CreateItem; key: CryptoKey }) => {
 		try {
 			const { blob, iv } = await encryptVaultItem(item, key);
-			await axios.post(
+			const response = await axios.post(
 				`${VAULT_API_HOST}/api/items`,
 				{ blob, iv },
 				{ withCredentials: true }
 			);
-			return item;
+			const data = response.data;
+			return {
+				id: data.id,
+				userId: data.userId,
+				...item,
+				createdAt: data.createdAt,
+				updatedAt: data.updatedAt,
+			};
 		} catch (error) {
 			console.error('Failed to create item:', error.message);
 			throw error;
