@@ -7,6 +7,8 @@ import Field from '../../../shared/Field';
 
 import type { RootState } from '../../../../redux/store';
 
+import type { VaultItem } from '../../../../types/items';
+
 const EditVaultItem = () => {
 	const activeItem = useSelector(
 		(state: RootState) => state.vault.activeItem
@@ -24,8 +26,8 @@ const EditVaultItem = () => {
 		return null;
 	}
 
-	const loginItemData = {
-		id: activeItem.id,
+	const loginItemData: Partial<VaultItem> = {
+		id: activeItem.id!,
 		type: 'login',
 		name,
 		username,

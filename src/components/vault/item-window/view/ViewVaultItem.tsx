@@ -3,7 +3,17 @@ import Field from '../../../shared/Field';
 import FieldGroup from '../../../shared/FieldGroup';
 import Timestamps from './Timestamps';
 
-const ViewVaultItem = ({ item }) => {
+import type { ActiveItem } from '../../../../types/vault';
+
+interface Props {
+	item: ActiveItem;
+}
+
+const ViewVaultItem = ({ item }: Props) => {
+	if (!item) {
+		return;
+	}
+
 	return (
 		<div className="h-full grid grid-rows-[1fr_3.5rem]">
 			<div className="w-full h-full max-w-screen-md mx-auto flex flex-col gap-3 p-4">

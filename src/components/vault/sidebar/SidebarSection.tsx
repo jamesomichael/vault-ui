@@ -11,8 +11,16 @@ import {
 } from 'react-icons/fa6';
 
 import type { RootState } from '../../../redux/store';
+import type { Category } from '../../../types/sidebar';
 
-const SidebarSection = ({ group, heading, data, onCreate }) => {
+interface Props {
+	group: string;
+	heading?: string;
+	data: Category[];
+	onCreate?: () => void;
+}
+
+const SidebarSection = ({ group, heading, data, onCreate }: Props) => {
 	const dispatch = useDispatch();
 	const activeCategory = useSelector(
 		(state: RootState) => state.filter.activeCategory
@@ -23,7 +31,7 @@ const SidebarSection = ({ group, heading, data, onCreate }) => {
 		setIsMinimised((prev) => !prev);
 	};
 
-	const handleActiveCategory = (group, id) => {
+	const handleActiveCategory = (group: string, id: string) => {
 		dispatch(setActiveCategory({ group, id }));
 	};
 

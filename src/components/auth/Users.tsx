@@ -7,7 +7,7 @@ import type { User as UserType } from '../../types/user';
 
 interface Props {
 	users: UserType[];
-	onSelect: () => void;
+	onSelect: (id: string, username: string) => void;
 }
 
 const Users = ({ users, onSelect }: Props) => {

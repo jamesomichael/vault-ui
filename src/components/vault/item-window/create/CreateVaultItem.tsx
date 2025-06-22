@@ -4,6 +4,8 @@ import CreateActions from './CreateActions';
 import FieldGroup from '../../../shared/FieldGroup';
 import Field from '../../../shared/Field';
 
+import type { CreateItem } from '../../../../types/items';
+
 const CreateVaultItem = () => {
 	const [name, setName] = useState('');
 	const [username, setUsername] = useState('');
@@ -11,7 +13,7 @@ const CreateVaultItem = () => {
 	const [uri, setUri] = useState('');
 	const [isFavourite, setIsFavourite] = useState(false);
 
-	const loginItemData = {
+	const loginItemData: CreateItem = {
 		type: 'login',
 		name,
 		username,

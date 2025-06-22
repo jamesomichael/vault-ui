@@ -3,24 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setActiveItem } from '../../../../redux/vaultSlice';
 
 import type { RootState } from '../../../../redux/store';
+import type { VaultItem } from '../../../../types/items';
 
-type ItemType = 'login' | 'card' | 'identity' | 'note' | 'key';
-
-interface ListItem {
-	id: string;
-	type: ItemType;
-	name: string;
-	username: string;
-	password: string;
-	uri: string;
-	folder?: string | null;
+interface Props {
+	item: VaultItem;
 }
 
-interface ItemProps {
-	item: ListItem;
-}
-
-const VaultListItem = ({ item }: ItemProps) => {
+const VaultListItem = ({ item }: Props) => {
 	const dispatch = useDispatch();
 	const activeItem = useSelector(
 		(state: RootState) => state.vault.activeItem

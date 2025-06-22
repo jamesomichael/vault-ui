@@ -8,21 +8,13 @@ import { editItem, clearActiveItem } from '../../../../redux/vaultSlice';
 
 import { FaRegTrashCan, FaRegFloppyDisk, FaXmark } from 'react-icons/fa6';
 
-interface LoginItemData {
-	id: string;
-	type: 'login';
-	name: string;
-	username: string;
-	password: string;
-	uri: string;
-	isFavourite: boolean;
-	folderId?: string | null;
-}
-interface EditActionsProps {
-	data: LoginItemData;
+import type { VaultItem } from '../../../../types/items';
+
+interface Props {
+	data: Partial<VaultItem>;
 }
 
-const EditActions = ({ data }: EditActionsProps) => {
+const EditActions = ({ data }: Props) => {
 	const dispatch = useDispatch();
 	const { encryptionKey } = useEncryption();
 

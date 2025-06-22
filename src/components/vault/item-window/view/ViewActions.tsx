@@ -10,21 +10,13 @@ import {
 
 import { FaRegTrashCan, FaPencil, FaXmark } from 'react-icons/fa6';
 
-interface LoginItemData {
-	id: string;
-	type: 'login';
-	name: string;
-	username: string;
-	password: string;
-	uri: string;
-	isFavourite: boolean;
-	folderId?: string | null;
-}
-interface ViewActionsProps {
-	data: LoginItemData;
+import type { ActiveItem } from '../../../../types/vault';
+
+interface Props {
+	data: ActiveItem;
 }
 
-const ViewActions = ({ data }: ViewActionsProps) => {
+const ViewActions = ({ data }: Props) => {
 	const dispatch = useDispatch();
 
 	const closeActiveItem = () => dispatch(clearActiveItem());

@@ -14,7 +14,7 @@ export const useLogIn = () => {
 	const [isDisabled, setIsDisabled] = useState(false);
 	const [error, setError] = useState(null);
 
-	const logIn = async (username) => {
+	const logIn = async (username: string) => {
 		setIsDisabled(true);
 		try {
 			const response = await axios.post(
