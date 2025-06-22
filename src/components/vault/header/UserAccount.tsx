@@ -4,11 +4,14 @@ import { useSelector } from 'react-redux';
 import { LuUserRound } from 'react-icons/lu';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa6';
 
+import { useLogOut } from '../../../hooks/useLogOut';
+
 import type { RootState } from '../../../redux/store';
 
 const UserAccount = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const username = useSelector((state: RootState) => state.user.username);
+	const { logOut } = useLogOut();
 
 	const toggleDropdown = () => setIsOpen((prev) => !prev);
 
@@ -32,7 +35,7 @@ const UserAccount = () => {
 				{isOpen && (
 					<div className="absolute top-full right-0 mt-0 w-full bg-slate-700 border border-slate-900 rounded shadow-md z-10 py-1">
 						<button
-							onClick={() => {}}
+							onClick={logOut}
 							className="font-hubot w-full text-left px-4 py-3 text-sm text-slate-100 hover:bg-slate-800 hover:cursor-pointer transition-colors duration-150"
 						>
 							Log out

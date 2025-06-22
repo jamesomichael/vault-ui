@@ -118,6 +118,11 @@ const vaultSlice = createSlice({
 			state.windowMode = null;
 			state.activeItem = null;
 		},
+		resetVault(state) {
+			state.windowMode = null;
+			state.activeItem = null;
+			state.items = [];
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(createItem.fulfilled, (state, action) => {
@@ -216,6 +221,11 @@ export const getFilteredItems = createSelector(
 	}
 );
 
-export const { setActiveItem, setEditMode, setCreateMode, clearActiveItem } =
-	vaultSlice.actions;
+export const {
+	setActiveItem,
+	setEditMode,
+	setCreateMode,
+	clearActiveItem,
+	resetVault,
+} = vaultSlice.actions;
 export default vaultSlice.reducer;
