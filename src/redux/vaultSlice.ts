@@ -99,6 +99,23 @@ export const fetchItems = createAsyncThunk(
 	}
 );
 
+export const restoreItem = createAsyncThunk(
+	'vault/restoreItem',
+	async ({ id }: { id: string }) => {
+		try {
+			await axios.patch(
+				`${VAULT_API_HOST}/api/items/${id}`,
+				{ deletedAt: null },
+				{ withCredentials: true }
+			);
+			return id;
+		} catch (error) {
+			console.error('Failed to restore item:', error.message);
+			throw error;
+		}
+	}
+);
+
 const vaultSlice = createSlice({
 	name: 'vault',
 	initialState,
@@ -157,6 +174,17 @@ const vaultSlice = createSlice({
 						deletedAt: new Date().toISOString(),
 					};
 				}
+			}
+		});
+		builder.addCase(restoreItem.fulfilled, (state, action) => {
+			const itemId = action.payload;
+			const index = state.items.findIndex((item) => item.id === itemId);
+			if (index !== -1) {
+				const item = state.items[index];
+				state.items[index] = {
+					...item,
+					deletedAt: null,
+				};
 			}
 		});
 	},

@@ -6,8 +6,10 @@ import {
 	setEditMode,
 	clearActiveItem,
 	deleteItem,
+	restoreItem,
 } from '../../../../redux/vaultSlice';
 
+import { TbRestore } from 'react-icons/tb';
 import { FaRegTrashCan, FaPencil, FaXmark } from 'react-icons/fa6';
 
 import type { ActiveItem } from '../../../../types/vault';
@@ -22,13 +24,24 @@ const ViewActions = ({ data }: Props) => {
 	const closeActiveItem = () => dispatch(clearActiveItem());
 	const activateEditMode = () => dispatch(setEditMode());
 
+	const isInBin = !!data?.deletedAt;
+
 	const handleDeletion = async () => {
 		try {
-			const shouldHardDelete = !!data.deletedAt;
-			await dispatch(deleteItem({ id: data.id, shouldHardDelete }));
+			await dispatch(
+				deleteItem({ id: data.id, shouldHardDelete: isInBin })
+			);
 			dispatch(clearActiveItem());
 		} catch (error) {
 			console.error(`Failed to delete item:`, error.message);
+		}
+	};
+
+	const restoreDeletedItem = async () => {
+		try {
+			await dispatch(restoreItem({ id: data.id }));
+		} catch (error) {
+			console.error(`Failed to restore item:`, error.message);
 		}
 	};
 
@@ -41,12 +54,21 @@ const ViewActions = ({ data }: Props) => {
 					Icon={FaXmark}
 					className="text-2xl text-slate-400"
 				/>
-				<Action
-					onClick={activateEditMode}
-					title="Edit"
-					Icon={FaPencil}
-					className="text-lg"
-				/>
+				{isInBin ? (
+					<Action
+						onClick={restoreDeletedItem}
+						title="Restore"
+						Icon={TbRestore}
+						className="text-2xl"
+					/>
+				) : (
+					<Action
+						onClick={activateEditMode}
+						title="Edit"
+						Icon={FaPencil}
+						className="text-lg"
+					/>
+				)}
 			</div>
 			<div className="h-full flex items-center gap-3">
 				<Action
