@@ -4,3 +4,8 @@ export interface User {
 }
 
 export type ActiveUser = User | null;
+
+export interface UserState {
+	id: string | null;
+	username: string | null;
+}

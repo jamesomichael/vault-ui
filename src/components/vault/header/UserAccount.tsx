@@ -1,10 +1,14 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { LuUserRound } from 'react-icons/lu';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa6';
 
+import type { RootState } from '../../../redux/store';
+
 const UserAccount = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const username = useSelector((state: RootState) => state.user.username);
 
 	const toggleDropdown = () => setIsOpen((prev) => !prev);
 
@@ -19,7 +23,7 @@ const UserAccount = () => {
 						<LuUserRound />
 					</div>
 					<span className="font-hubot text-sm text-slate-100 font-medium">
-						Username
+						{username}
 					</span>
 					<div className="text-slate-300 text-sm">
 						{isOpen ? <FaChevronUp /> : <FaChevronDown />}

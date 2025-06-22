@@ -1,13 +1,16 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 
 import { useEncryption } from './useEncryption';
+import { setUser } from '../redux/userSlice';
 
 const VAULT_API_HOST = import.meta.env.VITE_VAULT_API_HOST!;
 
 export const useLogIn = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [password, setPassword] = useState('');
 	const { deriveAndSetEncryptionKey } = useEncryption();
@@ -30,6 +33,7 @@ export const useLogIn = () => {
 			const data = response.data;
 			await deriveAndSetEncryptionKey(password, data.user.vaultSalt);
 			setPassword('');
+			dispatch(setUser({ id: data.user.id, username }));
 			navigate('/');
 		} catch (error) {
 			let message = 'Something went wrong.';
