@@ -9,9 +9,10 @@ import { FaRegCopy } from 'react-icons/fa6';
 
 interface Props {
 	onClose: () => void;
+	onSubmit: (value: string) => void;
 }
 
-const PasswordGenerator = ({ onClose }: Props) => {
+const PasswordGenerator = ({ onSubmit, onClose }: Props) => {
 	const [password, setPassword] = useState<string>('');
 	const [length, setLength] = useState(14);
 	const [uppercase, setUppercase] = useState(true);
@@ -59,14 +60,30 @@ const PasswordGenerator = ({ onClose }: Props) => {
 	};
 
 	return createPortal(
-		<Modal heading="Generator" onClose={onClose}>
+		<Modal
+			heading="Generator"
+			onClose={onClose}
+			actions={
+				<>
+					<button
+						onClick={() => {
+							onSubmit(password);
+							onClose();
+						}}
+						className="rounded-full bg-blue-400 hover:bg-blue-300 hover:cursor-pointer py-2 px-4 font-hubot text-sm font-semibold antialiased"
+					>
+						Use this password
+					</button>
+				</>
+			}
+		>
 			<div className="select-none flex flex-col gap-5">
 				<div className="flex justify-between items-center w-full bg-slate-800 h-14 rounded-md px-3">
 					<input
 						type="text"
 						disabled={true}
 						placeholder={password}
-						className="select-text font-hubot placeholder-white text-sm font-semibold antialiased"
+						className="w-full select-text font-hubot placeholder-white text-sm font-semibold antialiased"
 					/>
 					<div className="flex items-center gap-1">
 						<div

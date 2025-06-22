@@ -4,9 +4,10 @@ interface Props {
 	heading?: string;
 	children: React.ReactNode;
 	onClose: () => void;
+	actions?: React.ReactNode;
 }
 
-const Modal = ({ heading, children, onClose }: Props) => {
+const Modal = ({ heading, children, onClose, actions }: Props) => {
 	const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		if ((e.target as HTMLElement).id === 'backdrop') {
 			onClose();
@@ -32,7 +33,9 @@ const Modal = ({ heading, children, onClose }: Props) => {
 					</div>
 				</div>
 				<div className="p-3">{children}</div>
-				<div className="rounded-b-xl border-t-[1px] border-slate-400 h-full bg-slate-800"></div>
+				<div className="p-3 rounded-b-xl border-t-[1px] border-slate-400 h-full bg-slate-800 flex items-center">
+					{actions}
+				</div>
 			</div>
 		</div>
 	);

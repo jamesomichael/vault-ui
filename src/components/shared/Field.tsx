@@ -12,6 +12,7 @@ interface Props {
 	dropdownOptions?: { id: string; label: string }[];
 	isEditable?: boolean;
 	isPassword?: boolean;
+	onPasswordGeneration?: (value: string) => void;
 	onChange?: (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => void;
@@ -27,6 +28,7 @@ const Field = ({
 	dropdownOptions = [],
 	isEditable = false,
 	isPassword = false,
+	onPasswordGeneration,
 	onChange,
 	label,
 	value,
@@ -143,7 +145,10 @@ const Field = ({
 				</div>
 			</div>
 			{showModal && (
-				<PasswordGenerator onClose={() => setShowModal(false)} />
+				<PasswordGenerator
+					onSubmit={onPasswordGeneration}
+					onClose={() => setShowModal(false)}
+				/>
 			)}
 		</>
 	);

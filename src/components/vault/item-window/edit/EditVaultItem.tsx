@@ -67,6 +67,7 @@ const EditVaultItem = () => {
 						<Field
 							isEditable={true}
 							onChange={(e) => setPassword(e.target.value)}
+							onPasswordGeneration={(value) => setPassword(value)}
 							value={password}
 							label="Password"
 							isPassword={true}
