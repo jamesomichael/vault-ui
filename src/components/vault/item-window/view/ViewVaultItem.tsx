@@ -43,7 +43,10 @@ const ViewVaultItem = ({ item }: Props) => {
 							canCopy={true}
 						/>
 					</FieldGroup>
-					<Timestamps />
+					<Timestamps
+						createdAt={item.createdAt}
+						updatedAt={item.updatedAt}
+					/>
 				</div>
 			</div>
 			<ViewActions data={item} />

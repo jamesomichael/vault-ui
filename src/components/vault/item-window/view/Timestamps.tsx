@@ -1,10 +1,15 @@
 import Timestamp from './Timestamp';
 
-const Timestamps = () => {
+interface Props {
+	createdAt: string | undefined;
+	updatedAt: string | undefined;
+}
+
+const Timestamps = ({ createdAt, updatedAt }: Props) => {
 	return (
 		<div className="px-2 flex flex-col gap-2">
-			<Timestamp label="Updated" value={new Date().toISOString()} />
-			<Timestamp label="Created" value={new Date().toISOString()} />
+			{updatedAt && <Timestamp label="Updated" value={updatedAt} />}
+			{createdAt && <Timestamp label="Created" value={createdAt} />}
 		</div>
 	);
 };
