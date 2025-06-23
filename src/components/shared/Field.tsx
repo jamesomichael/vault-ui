@@ -144,7 +144,7 @@ const Field = ({
 					</div>
 				</div>
 			</div>
-			{showModal && (
+			{showModal && onPasswordGeneration && (
 				<PasswordGenerator
 					onSubmit={onPasswordGeneration}
 					onClose={() => setShowModal(false)}

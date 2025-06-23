@@ -15,7 +15,7 @@ export const useLogIn = () => {
 	const [password, setPassword] = useState('');
 	const { deriveAndSetEncryptionKey } = useEncryption();
 	const [isDisabled, setIsDisabled] = useState(false);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState<string | null>(null);
 
 	const logIn = async (username: string) => {
 		setIsDisabled(true);
@@ -37,8 +37,10 @@ export const useLogIn = () => {
 			navigate('/');
 		} catch (error) {
 			let message = 'Something went wrong.';
-			if (error?.response?.status === 401) {
-				message = 'Invalid credentials provided.';
+			if (axios.isAxiosError(error)) {
+				if (error?.response?.status === 401) {
+					message = 'Invalid credentials provided.';
+				}
 			}
 			setError(message);
 			setIsDisabled(false);

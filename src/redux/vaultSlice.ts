@@ -37,7 +37,9 @@ export const createItem = createAsyncThunk(
 				updatedAt: data.updatedAt,
 			};
 		} catch (error) {
-			console.error('Failed to create item:', error.message);
+			if (error instanceof Error) {
+				console.error('Failed to create item:', error.message);
+			}
 			throw error;
 		}
 	}
@@ -56,7 +58,9 @@ export const editItem = createAsyncThunk(
 			);
 			return item;
 		} catch (error) {
-			console.error('Failed to edit item:', error.message);
+			if (error instanceof Error) {
+				console.error('Failed to edit item:', error.message);
+			}
 			throw error;
 		}
 	}
@@ -78,7 +82,9 @@ export const deleteItem = createAsyncThunk(
 
 			return { id, shouldHardDelete };
 		} catch (error) {
-			console.error('Failed to delete item:', error.message);
+			if (error instanceof Error) {
+				console.error('Failed to delete item:', error.message);
+			}
 			throw error;
 		}
 	}
@@ -99,8 +105,10 @@ export const fetchItems = createAsyncThunk(
 				})
 			);
 			return decryptedData;
-		} catch (error) {
-			console.error('Failed to get vault items:', error.message);
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				console.error('Failed to get vault items:', error.message);
+			}
 			throw error;
 		}
 	}
@@ -117,7 +125,9 @@ export const restoreItem = createAsyncThunk(
 			);
 			return id;
 		} catch (error) {
-			console.error('Failed to restore item:', error.message);
+			if (error instanceof Error) {
+				console.error('Failed to restore item:', error.message);
+			}
 			throw error;
 		}
 	}

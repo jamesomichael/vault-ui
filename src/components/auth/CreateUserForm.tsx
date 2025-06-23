@@ -20,7 +20,7 @@ const CreateUserForm = () => {
 		setError,
 	} = useCreateUser();
 
-	const handleUsernameChange = (e) => {
+	const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		const sanitisedValue = value.replace(/[^A-Za-z0-9]/g, '');
 		setUsername(sanitisedValue);

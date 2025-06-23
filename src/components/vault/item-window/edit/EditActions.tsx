@@ -28,7 +28,9 @@ const EditActions = ({ data }: Props) => {
 				editItem({ item: data, key: encryptionKey })
 			).unwrap();
 		} catch (error) {
-			console.error('Failed to save item:', error.message);
+			if (error instanceof Error) {
+				console.error('Failed to save item:', error.message);
+			}
 		}
 	};
 

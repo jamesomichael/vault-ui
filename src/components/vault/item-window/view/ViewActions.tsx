@@ -33,7 +33,9 @@ const ViewActions = ({ data }: Props) => {
 			);
 			dispatch(clearActiveItem());
 		} catch (error) {
-			console.error(`Failed to delete item:`, error.message);
+			if (error instanceof Error) {
+				console.error(`Failed to delete item:`, error.message);
+			}
 		}
 	};
 
@@ -41,7 +43,9 @@ const ViewActions = ({ data }: Props) => {
 		try {
 			await dispatch(restoreItem({ id: data.id }));
 		} catch (error) {
-			console.error(`Failed to restore item:`, error.message);
+			if (error instanceof Error) {
+				console.error(`Failed to restore item:`, error.message);
+			}
 		}
 	};
 

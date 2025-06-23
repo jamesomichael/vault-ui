@@ -20,7 +20,9 @@ export const useLogOut = () => {
 			dispatch(resetVault());
 			navigate('/auth/login');
 		} catch (error) {
-			console.error('Failed to log out:', error.message);
+			if (error instanceof Error) {
+				console.error('Failed to log out:', error.message);
+			}
 		}
 	};
 

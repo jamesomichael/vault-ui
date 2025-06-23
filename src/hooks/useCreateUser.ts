@@ -39,8 +39,10 @@ export const useCreateUser = () => {
 			navigate('/');
 		} catch (error) {
 			let message = 'Something went wrong.';
-			if (error?.response?.status === 409) {
-				message = 'User already exists.';
+			if (axios.isAxiosError(error)) {
+				if (error?.response?.status === 409) {
+					message = 'User already exists.';
+				}
 			}
 			setError(message);
 			setIsDisabled(false);

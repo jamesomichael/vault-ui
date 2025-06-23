@@ -22,7 +22,9 @@ const SelectUser = () => {
 				const data = response.data;
 				setUsers(data);
 			} catch (error) {
-				console.error('Failed to fetch users:', error.message);
+				if (error instanceof Error) {
+					console.error('Failed to fetch users:', error.message);
+				}
 			} finally {
 				setIsLoading(false);
 			}
