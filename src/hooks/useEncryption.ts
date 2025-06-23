@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 
 import { EncryptionContext } from '../context/EncryptionContext';
 import { generateEncryptionKey } from '../utils/crypto';
@@ -7,6 +7,7 @@ import { generateEncryptionKey } from '../utils/crypto';
 export const useEncryption = () => {
 	const context = useContext(EncryptionContext);
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	if (!context) {
 		throw new Error(
@@ -17,10 +18,10 @@ export const useEncryption = () => {
 	const { encryptionKey, setEncryptionKey, clearEncryptionKey } = context;
 
 	useEffect(() => {
-		if (!encryptionKey) {
+		if (!encryptionKey && !location.pathname.startsWith('/auth')) {
 			navigate('/auth/login');
 		}
-	}, [encryptionKey, navigate]);
+	}, [encryptionKey, navigate, location.pathname]);
 
 	const deriveAndSetEncryptionKey = async (
 		password: string,
