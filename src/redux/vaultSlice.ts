@@ -51,12 +51,17 @@ export const editItem = createAsyncThunk(
 		try {
 			const { id } = item;
 			const { blob, iv } = await encryptVaultItem(item, key);
-			await axios.patch(
+			const response = await axios.patch(
 				`${VAULT_API_HOST}/api/items/${id}`,
 				{ blob, iv },
 				{ withCredentials: true }
 			);
-			return item;
+			const data = response.data;
+			return {
+				...item,
+				createdAt: data.createdAt,
+				updatedAt: data.updatedAt,
+			};
 		} catch (error) {
 			if (error instanceof Error) {
 				console.error('Failed to edit item:', error.message);
