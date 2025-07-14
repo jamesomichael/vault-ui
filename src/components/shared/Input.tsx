@@ -4,6 +4,9 @@ interface Props {
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	type?: string;
 	disabled: boolean;
+	autoFocus?: boolean;
+	autoComplete?: string;
+	required?: boolean;
 }
 
 const Input = ({
@@ -12,10 +15,16 @@ const Input = ({
 	value,
 	onChange,
 	disabled = false,
+	autoFocus = false,
+	autoComplete,
+	required = false,
 }: Props) => {
 	const isPassword = type === 'password';
 	return (
 		<input
+			autoFocus={autoFocus}
+			autoComplete={autoComplete}
+			required={required}
 			type={type}
 			disabled={disabled}
 			value={value}
