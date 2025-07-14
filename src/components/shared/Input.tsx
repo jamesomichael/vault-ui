@@ -7,6 +7,7 @@ interface Props {
 	autoFocus?: boolean;
 	autoComplete?: string;
 	required?: boolean;
+	minLength?: number;
 }
 
 const Input = ({
@@ -18,6 +19,7 @@ const Input = ({
 	autoFocus = false,
 	autoComplete,
 	required = false,
+	minLength,
 }: Props) => {
 	const isPassword = type === 'password';
 	return (
@@ -30,6 +32,7 @@ const Input = ({
 			value={value}
 			onChange={onChange}
 			placeholder={placeholder}
+			minLength={minLength}
 			className={`w-full rounded-lg outline-1 outline-slate-400 placeholder-slate-400 focus:outline-2 focus:outline-blue-400 hover:outline-blue-400 text-xs sm:text-sm h-10 px-3 py-2 ${
 				isPassword ? 'placeholder:font-hubot' : 'font-hubot'
 			}`}
