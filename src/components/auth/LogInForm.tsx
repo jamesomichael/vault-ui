@@ -42,7 +42,9 @@ const LogInForm = ({ user, onLogOut }: Props) => {
 				className="flex flex-col gap-4 mt-2 p-4 md:p-8 w-full md:w-[27rem] bg-slate-800 outline-1 outline-slate-400 rounded-xl"
 			>
 				<Input
+					autoFocus={true}
 					placeholder="Master password"
+					required={true}
 					disabled={isDisabled}
 					type="password"
 					value={password}

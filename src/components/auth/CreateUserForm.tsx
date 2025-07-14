@@ -47,9 +47,12 @@ const CreateUserForm = () => {
 			>
 				<Input
 					placeholder="Username"
+					autoFocus={true}
 					disabled={isDisabled}
 					onChange={handleUsernameChange}
 					value={username}
+					autoComplete="username"
+					required={true}
 				/>
 				<Input
 					type="password"
@@ -57,6 +60,9 @@ const CreateUserForm = () => {
 					placeholder="Password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
+					autoComplete="new-password"
+					minLength={8}
+					required={true}
 				/>
 				<Input
 					type="password"
@@ -64,6 +70,7 @@ const CreateUserForm = () => {
 					placeholder="Confirm password"
 					value={confirmPassword}
 					onChange={(e) => setConfirmPassword(e.target.value)}
+					required={true}
 				/>
 				<Button text="Create" type="submit" />
 				<div className="flex justify-center items-center">
