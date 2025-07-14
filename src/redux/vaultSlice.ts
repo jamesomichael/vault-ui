@@ -267,7 +267,10 @@ export const getFilteredItems = createSelector(
 			);
 		}
 
-		return filteredItems;
+		const sortedItems = filteredItems.sort((a, b) =>
+			a.name.localeCompare(b.name)
+		);
+		return sortedItems;
 	}
 );
 
