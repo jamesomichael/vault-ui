@@ -2,7 +2,7 @@
 
 _[Vault](https://github.com/jamesomichael/vault)_ frontend, inspired by Bitwarden, provides a clean, focused interface for managing vault items. It handles encryption and decryption of vault data using AES-GCM, with an encryption key derived from the user's master password via PBKDF2.
 
-![Vault UI](https://mexhjsdibsoshbepazwt.supabase.co/storage/v1/object/public/portfolio25//vault-items.png)
+![Vault UI](https://mexhjsdibsoshbepazwt.supabase.co/storage/v1/object/public/portfolio25//vault-hero.png)
 
 ## **Local Development**
 
