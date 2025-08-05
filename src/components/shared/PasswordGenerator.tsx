@@ -34,15 +34,13 @@ const PasswordGenerator = ({ onSubmit, onClose }: Props) => {
 	};
 
 	useEffect(() => {
-		generatePassword();
-	}, [length, uppercase, lowercase, numbers, symbols]);
-
-	useEffect(() => {
 		if (!uppercase && !lowercase && !numbers && !symbols) {
 			setUppercase(true);
 			setLowercase(true);
+		} else {
+			generatePassword();
 		}
-	}, [uppercase, lowercase, numbers, symbols]);
+	}, [length, uppercase, lowercase, numbers, symbols]);
 
 	const handleLengthChange = (
 		e: React.ChangeEvent<HTMLInputElement>,
