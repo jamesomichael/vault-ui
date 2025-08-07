@@ -2,7 +2,7 @@ const DEMO_USER_PASSWORD = import.meta.env.VITE_DEMO_USER_PASSWORD!;
 
 const DemoMessage = () => {
 	return (
-		<div className="select-text fixed m-6 bottom-0 lg:bottom-auto lg:top-0 lg:right-0 flex flex-col gap-2 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded md:w-[25rem] px-4 py-4">
+		<div className="select-text fixed m-6 bottom-0 left-0 flex flex-col gap-2 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded w-[25rem] px-4 py-4">
 			<p className="font-hubot font-bold text-lg">
 				Welcome to the Vault UI Demo!
 			</p>
