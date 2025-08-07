@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import PasswordGenerator from './PasswordGenerator';
 
@@ -41,7 +42,10 @@ const Field = ({
 
 	const toggleIsMasked = () => setIsMasked((prev) => !prev);
 
-	const copyToClipboard = () => navigator.clipboard.writeText(value);
+	const copyToClipboard = () => {
+		toast.success(`${label} copied.`);
+		navigator.clipboard.writeText(value);
+	};
 
 	const openGenerator = () => {
 		setShowModal(true);
