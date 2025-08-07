@@ -4,6 +4,8 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 import { Provider } from 'react-redux';
 
+import ResolutionWarning from './components/shared/ResolutionWarning.tsx';
+
 import { store } from './redux/store';
 
 import { EncryptionProvider } from './context/EncryptionProvider.tsx';
@@ -15,7 +17,12 @@ createRoot(document.getElementById('root')!).render(
 		<EncryptionProvider>
 			<Provider store={store}>
 				<BrowserRouter>
-					<App />
+					<div className="lg:hidden h-screen">
+						<ResolutionWarning />
+					</div>
+					<div className="hidden lg:block">
+						<App />
+					</div>
 				</BrowserRouter>
 			</Provider>
 		</EncryptionProvider>
