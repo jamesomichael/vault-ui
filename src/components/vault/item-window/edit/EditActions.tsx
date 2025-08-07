@@ -1,10 +1,15 @@
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import Action from '../../../shared/Action';
 
 import { useEncryption } from '../../../../hooks/useEncryption';
 
-import { editItem, clearActiveItem } from '../../../../redux/vaultSlice';
+import {
+	editItem,
+	deleteItem,
+	clearActiveItem,
+} from '../../../../redux/vaultSlice';
 
 import { FaRegTrashCan, FaRegFloppyDisk, FaXmark } from 'react-icons/fa6';
 
@@ -18,6 +23,8 @@ const EditActions = ({ data }: Props) => {
 	const dispatch = useDispatch();
 	const { encryptionKey } = useEncryption();
 
+	const isInBin = !!data?.deletedAt;
+
 	const saveItem = async () => {
 		if (!encryptionKey) {
 			console.error('No encryption key found.');
@@ -30,6 +37,24 @@ const EditActions = ({ data }: Props) => {
 		} catch (error) {
 			if (error instanceof Error) {
 				console.error('Failed to save item:', error.message);
+			}
+		}
+	};
+
+	const handleDeletion = async () => {
+		try {
+			let toastMessage = 'Item deleted.';
+			if (!isInBin) {
+				toastMessage = 'Item moved to bin.';
+			}
+			toast.error(toastMessage);
+			await dispatch(
+				deleteItem({ id: data.id, shouldHardDelete: isInBin })
+			);
+			dispatch(clearActiveItem());
+		} catch (error) {
+			if (error instanceof Error) {
+				console.error(`Failed to delete item:`, error.message);
 			}
 		}
 	};
@@ -55,6 +80,7 @@ const EditActions = ({ data }: Props) => {
 			<div className="h-full flex items-center gap-3">
 				<Action
 					title="Delete"
+					onClick={handleDeletion}
 					Icon={FaRegTrashCan}
 					className="text-lg"
 					isDestructive={true}

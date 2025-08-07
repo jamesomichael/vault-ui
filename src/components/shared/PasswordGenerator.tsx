@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import generator from 'generate-password-browser';
+import { toast } from 'react-toastify';
 
 import Modal from './Modal';
 
@@ -20,8 +21,10 @@ const PasswordGenerator = ({ onSubmit, onClose }: Props) => {
 	const [numbers, setNumbers] = useState(true);
 	const [symbols, setSymbols] = useState(true);
 
-	const copyToClipboard = () => navigator.clipboard.writeText(password);
-
+	const copyToClipboard = () => {
+		toast.success('Password copied.');
+		navigator.clipboard.writeText(password);
+	};
 	const generatePassword = () => {
 		const password = generator.generate({
 			length,

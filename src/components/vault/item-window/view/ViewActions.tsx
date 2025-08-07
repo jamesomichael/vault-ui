@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import Action from '../../../shared/Action';
 
@@ -28,6 +29,11 @@ const ViewActions = ({ data }: Props) => {
 
 	const handleDeletion = async () => {
 		try {
+			let toastMessage = 'Item deleted.';
+			if (!isInBin) {
+				toastMessage = 'Item moved to bin.';
+			}
+			toast.error(toastMessage);
 			await dispatch(
 				deleteItem({ id: data.id, shouldHardDelete: isInBin })
 			);
@@ -42,6 +48,7 @@ const ViewActions = ({ data }: Props) => {
 	const restoreDeletedItem = async () => {
 		try {
 			await dispatch(restoreItem({ id: data.id }));
+			toast.info('Item restored.');
 		} catch (error) {
 			if (error instanceof Error) {
 				console.error(`Failed to restore item:`, error.message);

@@ -5,3 +5,10 @@
 @theme {
 	--font-hubot: 'Hubot Sans';
 }
+
+:root {
+	--toastify-font-family: var(--font-hubot);
+	--toastify-color-success: #006103;
+	--toastify-color-error: #7d0000;
+	--toastify-color-info: #00416c;
+}
