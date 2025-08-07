@@ -31,6 +31,7 @@ const EditActions = ({ data }: Props) => {
 			return;
 		}
 		try {
+			toast.success('Item saved.');
 			await dispatch(
 				editItem({ item: data, key: encryptionKey })
 			).unwrap();
