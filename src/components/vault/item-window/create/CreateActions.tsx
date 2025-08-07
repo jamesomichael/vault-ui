@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import Action from '../../../shared/Action';
 
@@ -23,6 +24,7 @@ const CreateActions = ({ data }: Props) => {
 			return;
 		}
 		try {
+			toast.success('Item saved.');
 			await dispatch(
 				createItem({ item: data, key: encryptionKey })
 			).unwrap();
