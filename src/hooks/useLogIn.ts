@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
 import { useNavigate } from 'react-router';
 
 import { useEncryption } from './useEncryption';
 import { setUser } from '../redux/userSlice';
 
-const VAULT_API_HOST = import.meta.env.VITE_VAULT_API_HOST!;
+const DEMO_USER_VAULT_SALT = import.meta.env.VITE_DEMO_USER_VAULT_SALT!;
+const DEMO_USER_PASSWORD = import.meta.env.VITE_DEMO_USER_PASSWORD!;
 
 export const useLogIn = () => {
 	const navigate = useNavigate();
@@ -19,29 +19,13 @@ export const useLogIn = () => {
 
 	const logIn = async (username: string) => {
 		setIsDisabled(true);
-		try {
-			const response = await axios.post(
-				`${VAULT_API_HOST}/api/auth/login`,
-				{
-					username,
-					password,
-				},
-				{
-					withCredentials: true,
-				}
-			);
-			const data = response.data;
-			await deriveAndSetEncryptionKey(password, data.user.vaultSalt);
+		if (password === DEMO_USER_PASSWORD) {
+			await deriveAndSetEncryptionKey(password, DEMO_USER_VAULT_SALT);
 			setPassword('');
-			dispatch(setUser({ id: data.user.id, username }));
+			dispatch(setUser({ id: 'demo-user-1', username }));
 			navigate('/');
-		} catch (error) {
-			let message = 'Something went wrong.';
-			if (axios.isAxiosError(error)) {
-				if (error?.response?.status === 401) {
-					message = 'Invalid credentials provided.';
-				}
-			}
+		} else {
+			const message = 'Invalid credentials provided.';
 			setError(message);
 			setIsDisabled(false);
 		}

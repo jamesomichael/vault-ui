@@ -3,14 +3,12 @@ import {
 	createSelector,
 	createSlice,
 } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
-import { decryptVaultItem, encryptVaultItem } from '../utils/crypto';
+import { DEFAULT_VAULT_ITEMS } from '../constants/demo-data';
 
-import type { VaultItem, CreateItem, EncryptedItem } from '../types/items';
+import type { VaultItem, CreateItem } from '../types/items';
 import type { VaultState } from '../types/vault';
-
-const VAULT_API_HOST = import.meta.env.VITE_VAULT_API_HOST!;
 
 const initialState: VaultState = {
 	activeItem: null,
@@ -20,21 +18,15 @@ const initialState: VaultState = {
 
 export const createItem = createAsyncThunk(
 	'vault/createItem',
-	async ({ item, key }: { item: CreateItem; key: CryptoKey }) => {
+	async ({ item }: { item: CreateItem }) => {
 		try {
-			const { blob, iv } = await encryptVaultItem(item, key);
-			const response = await axios.post(
-				`${VAULT_API_HOST}/api/items`,
-				{ blob, iv },
-				{ withCredentials: true }
-			);
-			const data = response.data;
+			const date = new Date().toISOString();
 			return {
-				id: data.id,
-				userId: data.userId,
+				id: uuidv4(),
+				userId: 'demo-user-1',
 				...item,
-				createdAt: data.createdAt,
-				updatedAt: data.updatedAt,
+				createdAt: date,
+				updatedAt: date,
 			};
 		} catch (error) {
 			if (error instanceof Error) {
@@ -47,20 +39,13 @@ export const createItem = createAsyncThunk(
 
 export const editItem = createAsyncThunk(
 	'vault/editItem',
-	async ({ item, key }: { item: VaultItem; key: CryptoKey }) => {
+	async ({ item }: { item: VaultItem }) => {
 		try {
-			const { id } = item;
-			const { blob, iv } = await encryptVaultItem(item, key);
-			const response = await axios.patch(
-				`${VAULT_API_HOST}/api/items/${id}`,
-				{ blob, iv },
-				{ withCredentials: true }
-			);
-			const data = response.data;
+			const date = new Date().toISOString();
 			return {
 				...item,
-				createdAt: data.createdAt,
-				updatedAt: data.updatedAt,
+				createdAt: date,
+				updatedAt: date,
 			};
 		} catch (error) {
 			if (error instanceof Error) {
@@ -81,10 +66,6 @@ export const deleteItem = createAsyncThunk(
 		shouldHardDelete: boolean;
 	}) => {
 		try {
-			await axios.delete(`${VAULT_API_HOST}/api/items/${id}`, {
-				withCredentials: true,
-			});
-
 			return { id, shouldHardDelete };
 		} catch (error) {
 			if (error instanceof Error) {
@@ -95,46 +76,14 @@ export const deleteItem = createAsyncThunk(
 	}
 );
 
-export const fetchItems = createAsyncThunk(
-	'vault/fetchItems',
-	async ({ key }: { key: CryptoKey }) => {
-		try {
-			const response = await axios.get(`${VAULT_API_HOST}/api/items`, {
-				withCredentials: true,
-			});
-			const data = response.data;
-			const decryptedData = await Promise.all(
-				data.map(async ({ blob, iv, ...metadata }: EncryptedItem) => {
-					const decryptedItem = await decryptVaultItem(blob, iv, key);
-					return { ...decryptedItem, ...metadata };
-				})
-			);
-			return decryptedData;
-		} catch (error: unknown) {
-			if (error instanceof Error) {
-				console.error('Failed to get vault items:', error.message);
-			}
-			throw error;
-		}
-	}
-);
+export const fetchItems = createAsyncThunk('vault/fetchItems', async () => {
+	return DEFAULT_VAULT_ITEMS;
+});
 
 export const restoreItem = createAsyncThunk(
 	'vault/restoreItem',
 	async ({ id }: { id: string }) => {
-		try {
-			await axios.patch(
-				`${VAULT_API_HOST}/api/items/${id}`,
-				{ deletedAt: null },
-				{ withCredentials: true }
-			);
-			return id;
-		} catch (error) {
-			if (error instanceof Error) {
-				console.error('Failed to restore item:', error.message);
-			}
-			throw error;
-		}
+		return id;
 	}
 );
 

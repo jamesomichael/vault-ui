@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 
 import Users from '../../components/auth/Users';
 import LogInForm from '../../components/auth/LogInForm';
@@ -7,7 +6,12 @@ import Loader from '../../components/shared/Loader';
 
 import type { ActiveUser } from '../../types/user';
 
-const VAULT_API_HOST = import.meta.env.VITE_VAULT_API_HOST!;
+const DEMO_USERS = [
+	{
+		id: 'demo-user-1',
+		username: 'DemoUser',
+	},
+];
 
 const SelectUser = () => {
 	const [activeUser, setActiveUser] = useState<ActiveUser>(null);
@@ -16,20 +20,8 @@ const SelectUser = () => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		const fetchUsers = async () => {
-			try {
-				const response = await axios.get(`${VAULT_API_HOST}/api/users`);
-				const data = response.data;
-				setUsers(data);
-			} catch (error) {
-				if (error instanceof Error) {
-					console.error('Failed to fetch users:', error.message);
-				}
-			} finally {
-				setIsLoading(false);
-			}
-		};
-		fetchUsers();
+		setUsers(DEMO_USERS);
+		setIsLoading(false);
 	}, []);
 
 	const handleUserSelection = (id: string, username: string) => {

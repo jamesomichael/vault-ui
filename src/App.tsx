@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router';
 
-import CreateUser from './pages/auth/CreateUser';
 import SelectUser from './pages/auth/SelectUser';
 import AuthLayout from './layouts/AuthLayout';
 import Vault from './pages/Vault';
@@ -13,7 +12,6 @@ function App() {
 				<Route path="/" element={<Vault />} />
 				<Route path="/auth" element={<AuthLayout />}>
 					<Route path="login" element={<SelectUser />} />
-					<Route path="create" element={<CreateUser />} />
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>

@@ -27,7 +27,9 @@ const ItemWindow = () => {
 			) : (
 				<div className="h-full flex gap-2 justify-center items-center text-slate-500">
 					<IoShieldHalfSharp className="text-5xl" />
-					<span className="font-hubot text-5xl">Vault</span>
+					<span className="font-hubot text-5xl">
+						Vault <span className="font-extralight">UI Demo</span>
+					</span>
 				</div>
 			)}
 		</div>
