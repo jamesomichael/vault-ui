@@ -17,7 +17,7 @@ const Modal = ({ heading, children, onClose, actions }: Props) => {
 		<div
 			id="backdrop"
 			onClick={handleBackdropClick}
-			className="select-none fixed inset-0 z-50 bg-black/70 flex justify-center items-center"
+			className="select-none fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex justify-center items-center"
 		>
 			<div className="relative w-full max-w-[40rem] bg-slate-900 grid grid-rows-[4rem_1fr_4rem] rounded-xl border-[1px] border-slate-400">
 				<div className="rounded-t-xl border-b-[1px] border-slate-400 px-3 h-full bg-slate-800 flex justify-between items-center">
