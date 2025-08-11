@@ -85,6 +85,12 @@ const EditActions = ({ data }: Props) => {
 					Icon={FaRegTrashCan}
 					className="text-lg"
 					isDestructive={true}
+					modalHeading="Delete item"
+					modalText={
+						isInBin
+							? 'Are you sure you want to permanently delete this item?'
+							: 'Do you really want to send to the bin?'
+					}
 				/>
 			</div>
 		</div>
