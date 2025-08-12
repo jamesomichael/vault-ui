@@ -68,6 +68,7 @@ const PasswordGenerator = ({ onSubmit, onClose }: Props) => {
 			actions={
 				<>
 					<button
+						data-testid="use-password-button"
 						onClick={() => {
 							onSubmit(password);
 							onClose();
@@ -82,6 +83,7 @@ const PasswordGenerator = ({ onSubmit, onClose }: Props) => {
 			<div className="select-none flex flex-col gap-5">
 				<div className="flex justify-between items-center w-full bg-slate-800 h-14 rounded-md px-3">
 					<input
+						data-testid="password-input"
 						type="text"
 						disabled={true}
 						placeholder={password}
@@ -89,6 +91,7 @@ const PasswordGenerator = ({ onSubmit, onClose }: Props) => {
 					/>
 					<div className="flex items-center gap-1">
 						<div
+							data-testid="generate-password"
 							title="Generate password"
 							onClick={() => generatePassword()}
 							className="hover:cursor-pointer rounded-md hover:outline-1 hover:outline-blue-400 transition-all duration-150 p-2"
@@ -96,6 +99,7 @@ const PasswordGenerator = ({ onSubmit, onClose }: Props) => {
 							<LuRefreshCcwDot className="text-slate-100 text-lg" />
 						</div>
 						<div
+							data-testid="copy-password"
 							title="Copy password"
 							onClick={copyToClipboard}
 							className="hover:cursor-pointer rounded-md hover:outline-1 hover:outline-blue-400 transition-all duration-150 p-2"
@@ -113,6 +117,7 @@ const PasswordGenerator = ({ onSubmit, onClose }: Props) => {
 							Length
 						</span>
 						<input
+							data-testid="password-length-input"
 							type="number"
 							defaultValue={length}
 							value={length}
@@ -166,6 +171,7 @@ const PasswordGenerator = ({ onSubmit, onClose }: Props) => {
 								>
 									<input
 										type="checkbox"
+										data-testid={`${id}-checkbox`}
 										id={id}
 										checked={checked}
 										className="scale-125"
