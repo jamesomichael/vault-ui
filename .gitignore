@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 
+coverage
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
