@@ -8,6 +8,11 @@ export const parameters = {
 
 const preview: Preview = {
 	parameters: {
+		backgrounds: {
+			options: {
+				dark: { name: 'Dark', value: '#020618' },
+			},
+		},
 		controls: {
 			matchers: {
 				color: /(background|color)$/i,
@@ -21,6 +26,9 @@ const preview: Preview = {
 			// 'off' - skip a11y checks entirely
 			test: 'todo',
 		},
+	},
+	initialGlobals: {
+		backgrounds: { value: 'dark' },
 	},
 };
 
