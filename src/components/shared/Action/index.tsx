@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import ConfirmationModel from '.';
+import ConfirmationModel from '../ConfirmationModal';
 
 interface Props {
 	title: string;
