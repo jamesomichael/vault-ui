@@ -33,7 +33,7 @@ const Input = ({
 			onChange={onChange}
 			placeholder={placeholder}
 			minLength={minLength}
-			className={`w-full rounded-lg outline-1 outline-slate-400 placeholder-slate-400 focus:outline-2 focus:outline-blue-400 hover:outline-blue-400 text-xs sm:text-sm h-10 px-3 py-2 ${
+			className={`w-full rounded-lg outline-1 outline-slate-400 text-slate-200 placeholder-slate-400 focus:outline-2 focus:outline-blue-400 hover:outline-blue-400 text-xs sm:text-sm h-10 px-3 py-2 ${
 				isPassword ? 'placeholder:font-hubot' : 'font-hubot'
 			}`}
 		/>
