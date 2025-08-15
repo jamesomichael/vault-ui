@@ -21,61 +21,51 @@ const meta: Meta<typeof Action> = {
 	parameters: {
 		layout: 'centered',
 	},
+	decorators: [
+		(Story) => (
+			<div className="h-12">
+				<Story />
+			</div>
+		),
+	],
 };
 export default meta;
 
 export const Default: Story = {
-	render: (args) => (
-		<div className="h-12">
-			<Action {...args} title="Save" className="text-2xl" />
-		</div>
-	),
+	args: {
+		title: 'Save',
+		className: 'text-2xl',
+	},
 };
 
 export const Save: Story = {
-	render: (args) => (
-		<div className="h-12">
-			<Action {...args} title="Save" className="text-2xl" />
-		</div>
-	),
+	args: {
+		title: 'Save',
+		className: 'text-2xl',
+	},
 };
 
 export const Close: Story = {
-	render: (args) => (
-		<div className="h-12">
-			<Action
-				{...args}
-				title="Close"
-				Icon={FaXmark}
-				className="text-2xl text-slate-400"
-			/>
-		</div>
-	),
+	args: {
+		title: 'Close',
+		className: 'text-2xl text-slate-400',
+		Icon: FaXmark,
+	},
 };
 
 export const Restore: Story = {
-	render: (args) => (
-		<div className="h-12">
-			<Action
-				{...args}
-				title="Restore"
-				Icon={TbRestore}
-				className="text-2xl"
-			/>
-		</div>
-	),
+	args: {
+		title: 'Restore',
+		className: 'text-2xl',
+		Icon: TbRestore,
+	},
 };
 
 export const Destructive: Story = {
-	render: (args) => (
-		<div className="h-12">
-			<Action
-				{...args}
-				title="Delete"
-				Icon={FaRegTrashCan}
-				isDestructive={true}
-				className="text-lg"
-			/>
-		</div>
-	),
+	args: {
+		title: 'Delete',
+		className: 'text-lg',
+		isDestructive: true,
+		Icon: FaRegTrashCan,
+	},
 };
