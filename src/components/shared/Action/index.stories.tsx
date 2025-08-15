@@ -13,10 +13,9 @@ const meta: Meta<typeof Action> = {
 	title: 'Shared/Action',
 	component: Action,
 	args: {
-		title: 'Save',
+		title: 'Action',
 		isDestructive: false,
 		onClick: fn(),
-		className: 'text-2xl py-2.5',
 		Icon: FaRegFloppyDisk,
 	},
 	parameters: {
@@ -25,34 +24,58 @@ const meta: Meta<typeof Action> = {
 };
 export default meta;
 
-export const Default: Story = {};
+export const Default: Story = {
+	render: (args) => (
+		<div className="h-12">
+			<Action {...args} title="Save" className="text-2xl" />
+		</div>
+	),
+};
 
-export const Save: Story = {};
+export const Save: Story = {
+	render: (args) => (
+		<div className="h-12">
+			<Action {...args} title="Save" className="text-2xl" />
+		</div>
+	),
+};
 
 export const Close: Story = {
-	args: {
-		title: 'Close',
-		onClick: fn(),
-		className: 'text-2xl text-slate-400 py-2.5',
-		Icon: FaXmark,
-	},
+	render: (args) => (
+		<div className="h-12">
+			<Action
+				{...args}
+				title="Close"
+				Icon={FaXmark}
+				className="text-2xl text-slate-400"
+			/>
+		</div>
+	),
 };
 
 export const Restore: Story = {
-	args: {
-		title: 'Restore',
-		onClick: fn(),
-		className: 'text-2xl py-2.5',
-		Icon: TbRestore,
-	},
+	render: (args) => (
+		<div className="h-12">
+			<Action
+				{...args}
+				title="Restore"
+				Icon={TbRestore}
+				className="text-2xl"
+			/>
+		</div>
+	),
 };
 
 export const Destructive: Story = {
-	args: {
-		title: 'Delete',
-		isDestructive: true,
-		onClick: fn(),
-		className: 'text-lg py-3.25',
-		Icon: FaRegTrashCan,
-	},
+	render: (args) => (
+		<div className="h-12">
+			<Action
+				{...args}
+				title="Delete"
+				Icon={FaRegTrashCan}
+				isDestructive={true}
+				className="text-lg"
+			/>
+		</div>
+	),
 };
