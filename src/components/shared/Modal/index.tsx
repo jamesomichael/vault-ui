@@ -16,6 +16,7 @@ const Modal = ({ heading, children, onClose, actions }: Props) => {
 	return (
 		<div
 			id="backdrop"
+			data-testid="backdrop"
 			onClick={handleBackdropClick}
 			className="select-none fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex justify-center items-center"
 		>

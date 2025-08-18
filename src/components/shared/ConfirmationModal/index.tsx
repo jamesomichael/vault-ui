@@ -27,6 +27,7 @@ const ConfirmationModel = ({
 	return createPortal(
 		<div
 			id="confirmation-modal-backdrop"
+			data-testid="confirmation-modal-backdrop"
 			onClick={handleBackdropClick}
 			className="select-none fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex justify-center items-center"
 		>
